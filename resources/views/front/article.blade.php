@@ -14,7 +14,50 @@
 		<div id="main" class="container">
 			<div class="row">
 				<div class="9u">
-					
+					<div class="row">
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Pertama</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;7 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Kedua</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;2 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Ketiga</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;1 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Keempat</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;4 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Kelima</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;7 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+						<section class="4u">
+							<div class="box">
+								<h2>Kategori Keenam</h2>
+								<p><i class="fa fa-file-o"></i>&nbsp;&nbsp;0 Artikel</p>
+								<a href="{{route('search')}}" class="button">Lihat Selengkapnya</a>
+							</div>
+						</section>
+					</div>
 				</div>
 				<div class="3u">
 					<section class="sidebar">
