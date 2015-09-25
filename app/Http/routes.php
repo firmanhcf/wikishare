@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('/', 				['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('artikel', 			['as' => 'article', 'uses' => 'HomeController@article']);
+Route::get('artikel/detil', 	['as' => 'detail', 'uses' => 'HomeController@detail']);
+Route::get('pencarian', 		['as' => 'search', 'uses' => 'HomeController@search']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
