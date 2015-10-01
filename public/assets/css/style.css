@@ -56,6 +56,11 @@
 		color: #ff0000;
 	}
 
+	label{
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+
 	sub
 	{
 		position: relative;
@@ -853,6 +858,25 @@
 			{
 				display: none;
 			}
+
+			#nav li.login .dropdown-toggle{
+				display: block;
+			    margin-left: 0.7em;
+			    padding: 0.80em 1.2em;
+			    letter-spacing: 0.06em;
+			    text-decoration: none;
+			    text-transform: uppercase;
+			    font-size: 1.1em;
+			    outline: 0;
+			}
+
+			#nav li.login .dropdown ul{
+				background: #e95d3c;
+			    margin-left: 0.7em;
+			    float: right !important;
+    			width: 150px;
+    			position: relative;
+			}
 	
 /*********************************************************************************/
 /* Banner                                                                        */
@@ -1006,6 +1030,10 @@
 			margin-top: 10px;
 			color: #888;
 		}
+
+		.box a{
+			margin-bottom: 1em;
+		}
 	
 	blockquote
 	{
@@ -1031,5 +1059,14 @@
 	.balloon strong
 	{
 		color: #333 !important;
+	}
+
+	.control-label.has-error{
+		color: #e95d3c;
+    	margin-top: 5px;	
+	}
+
+	.input-error{
+		border: #e95d3c solid 1px;
 	}
 

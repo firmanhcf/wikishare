@@ -35,8 +35,4 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
-	public function getLogin(){
-		return view('front.login');
-	}
-
 }

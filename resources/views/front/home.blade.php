@@ -1,11 +1,5 @@
 @extends('partials.front_layout')
 @section('content')
-<!-- Banner -->
-	<div id="banner">
-		<div class="container">
-		</div>
-	</div>
-<!-- /Banner -->
 
 <!-- Main -->
 	<div id="page">

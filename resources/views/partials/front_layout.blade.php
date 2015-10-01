@@ -11,31 +11,37 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700' rel='stylesheet' type='text/css'>
-		{!!HTML::style('assets/css/font-awesome.min.css') !!}
-		{!!HTML::style('assets/css/bootstrap.min.css') !!}
-		{!!HTML::style('assets/css/skel-noscript.css') !!}
-		{!!HTML::style('assets/css/style.css') !!}
-		{!!HTML::style('assets/css/style-desktop.css') !!}
+		{!! HTML::style('assets/css/font-awesome.min.css') !!}
+		{!! HTML::style('assets/css/bootstrap.min.css') !!}
+		{!! HTML::style('assets/css/skel-noscript.css') !!}
+		{!! HTML::style('assets/css/style.css') !!}
+		{!! HTML::style('assets/css/style-desktop.css') !!}
 		
 
 		@yield('style')
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
 	</head>
-	<body class="homepage">
-
+	<body class="{{(Route::currentRouteName()=='home')?'homepage':''}}">
 	<!-- Header -->
 		@include('partials.header')
 	<!-- Header -->
-		
+
+	<!-- Banner -->
+		<div id="banner">
+			<div class="container">
+			</div>
+		</div>
+	<!-- /Banner -->
+	
 		@yield('content')
 
 	<!-- Footer -->
 		@include('partials.footer')
 	<!-- /Footer -->
 
-		{!!HTML::script('assets/js/jquery.min.js') !!}
-		{!!HTML::script('assets/js/bootstrap.min.js') !!}
+		{!! HTML::script('assets/js/jquery.min.js') !!}
+		{!! HTML::script('assets/js/bootstrap.min.js') !!}
 		@yield('script')
 
 	</body>

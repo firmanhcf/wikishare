@@ -1,61 +1,34 @@
-@extends('app')
-
+@extends('partials.front_layout')
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+<!-- Main -->
+	<div id="page">
+			
+		<div id="main" class="container">
+			@include('partials.notification')
+			
+			<div class="row">
+				<div class="4u">
+					<form method="POST" action="{{url('auth/login')}}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
+							<label for="member-username">Username</label>
+							<input type="text" class="form-control {{ $errors->has('username')?'input-error':'' }}" name="username" id="member-username" placeholder="Masukkan username Anda" value="{{old('username')}}">
+							{!!$errors->first('username', '<label class="control-label has-error">:message</label>')!!}
 						</div>
-
 						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
+							<label for="member-password">Password</label>
+							<input type="password" class="form-control {{ $errors->has('password')?'input-error':'' }}" name="password" id="member-password" placeholder="Masukkan password Anda">
+							{!!$errors->first('password', '<label class="control-label has-error">:message</label>')!!}
 						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
+						
+						<button type="submit" class="button">Masuk</button>&nbsp;&nbsp;<a href="{{ url('/password/email') }}">Lupa password?</a>
 					</form>
 				</div>
+				
 			</div>
 		</div>
+		<!-- Main -->
 	</div>
-</div>
+<!-- /Main -->
 @endsection
