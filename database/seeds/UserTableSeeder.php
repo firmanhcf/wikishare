@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder {
 			'name' => 'Firman Hidayat CF',
 			'username' => 'firmanhcf',
 			'email' => 'firmanhcf@outlook.com',
-			'password' => bcrypt('wikishare123'),
+			'password' => bcrypt('wiki1234'),
 			'confirmation_code' => md5(microtime() . env('APP_KEY')),
 		]);
 

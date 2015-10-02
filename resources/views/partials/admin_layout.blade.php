@@ -9,7 +9,17 @@
   {!! HTML::style('assets/css/bootstrap.min.css') !!}
   {!! HTML::style('assets/css/AdminLTE.min.css') !!}
   {!! HTML::style('assets/css/skin-blue.min.css') !!}
+
   @yield('style')
+
+  {!! HTML::script('assets/js/jquery.min.js') !!}
+  {!! HTML::script('assets/js/bootstrap.min.js') !!}
+  {!! HTML::script('assets/js/tinymce/tinymce.min.js') !!}
+  <script type="text/javascript">
+      tinymce.init({
+          selector: "#mytextarea"
+      });
+  </script>
   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -20,9 +30,6 @@
 
   @yield('content')
   @include('partials.footer')
-
-  {!! HTML::script('assets/js/jquery.min.js') !!}
-  {!! HTML::script('assets/js/bootstrap.min.js') !!}
   @yield('script')
 </body>
 </html>

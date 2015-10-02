@@ -33,7 +33,9 @@ class MemberController extends Controller {
 	 */
 	public function index()
 	{
-		return view('member.index');
+		$categories = \App\ArticleCategory::get();
+		$articles = \App\Article::orderBy('created_at', 'desc')->get();
+		return view('member.index', compact('categories', 'articles'));
 	}
 
 	public function getSettings()
