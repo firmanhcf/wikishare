@@ -57,6 +57,24 @@ class MemberController extends Controller {
 		$user->name = $request->name;
 		$user->email = $request->email;
 
+		$picture = $user->photo;
+
+        if($request->hasFile('user_photo'))
+        {
+            $file = $request->file('user_photo');
+            $filename = $file->getClientOriginalName();
+            $extension = $file -> getClientOriginalExtension();
+            $picture = sha1($filename . time()) . '.' . $extension;
+            $user->photo = $picture;
+
+        }
+
+        if($request->hasFile('user_photo'))
+        {
+            $destinationPath = public_path() . '/assets/img/';
+            $request->file('user_photo')->move($destinationPath, $picture);
+        }
+
 		if($user->save()){
             return redirect()
 			->back()

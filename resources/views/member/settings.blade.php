@@ -20,9 +20,16 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="{{route('member.settings.action')}}" method="POST">
+            <form role="form" enctype="multipart/form-data" action="{{route('member.settings.action')}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
+                <div class="form-group">
+                  <div class="center-cropped">
+                      <img id="image-preview" src="{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}" alt="" />
+                  </div>  
+                  <input type="file" name="user_photo" id="file-input" style="opacity: 0;">
+                  <a href="#" class="btn btn-primary" id="choose-photo-btn">Pilih Foto</a>
+                </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
                   <input name="username" type="text" class="form-control" id="user-username" value="{{Auth::user()->username}}" disabled>
@@ -81,4 +88,46 @@
     </section>
     
   </div>
+@endsection
+
+@section('style')
+<style type="text/css">
+  div.center-cropped {
+    width: 170px;
+    height: 170px;
+    overflow:hidden;
+  }
+  div.center-cropped img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+  }
+</style>
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    $('#choose-photo-btn').click(function() {
+      $('#file-input').click();
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file-input").change(function(){
+        readURL(this);
+    });
+  </script>
 @endsection
