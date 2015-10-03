@@ -63,7 +63,7 @@
                 
               </div>
 
-              <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; display: table-cell; width: 1046px; text-align: center;">
+              <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; display: table-cell; width: 1046px;">
 
                 @if(count($articles)>0)
                 @foreach($articles as $item)
