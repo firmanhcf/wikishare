@@ -69,7 +69,7 @@
                 @foreach($articles as $item)
                   <div class="post" style="margin:5px;">
                     <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="{{asset('assets/images/avatar2.png')}}" alt="user image">
+                      <img class="img-circle img-bordered-sm" src="{{is_null($item->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->user->photo)}}" alt="user image">
                           <span class="username">
                             <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
                           </span>
