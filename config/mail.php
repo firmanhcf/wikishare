@@ -83,7 +83,7 @@ return [
 	|
 	*/
 
-	'username' => 'wikishare999@gmail.com',
+	'username' => 'fattahfirman@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
 	|
 	*/
 
-	'password' => 'm6hLZUcUVLlrLWI6pfgDIQ',
+	'password' => 'fZA2UWAqVOF6uW1NNEMilQ',
 
 	/*
 	|--------------------------------------------------------------------------
