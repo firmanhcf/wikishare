@@ -67,7 +67,10 @@ class ArticleController extends Controller {
 	{
 		$categories = \App\ArticleCategory::get();
 		$article = \App\Article::findOrFail($id);
-		return view('member.article_edit', compact('categories', 'article'));
+		$users = \App\User::where('id','!=', \Auth::user()->id)
+					 ->where('admin', '=', 'false')
+					 ->get();
+		return view('member.article_edit', compact('categories', 'article', 'users'));
 	}
 
 	/**
@@ -84,11 +87,10 @@ class ArticleController extends Controller {
 			['required' => 'Silahkan masukkan :attribute artikel Anda']);
 		
 		$article = \App\Article::findOrFail($id);
-		$article -> title = $request -> title;
-		$article -> slug = str_slug($request -> title, '-');
+		$article -> title = $request -> judul;
+		$article -> slug = str_slug($request -> judul, '-');
 		$article -> category_id = $request -> category_id;
-		$article -> content = $request -> content;
-		$article -> user_id = \Auth::user()->id;
+		$article -> content = $request -> isi;
 		$article -> article_status = 'unpublished';
 		$article -> approval_status = 'pending';
 

@@ -37,11 +37,14 @@ class MemberController extends Controller {
 		$articles = \App\Article::where('user_id','=',\Auth::user()->id)
 								->orderBy('created_at', 'desc')
 								->get();
+		$collaborators = \App\ArticleCollaborator::where('user_id','=',\Auth::user()->id)
+								->orderBy('created_at', 'desc')
+								->get();
 		$users = User::where('id','!=', \Auth::user()->id)
 					 ->where('admin', '=', 'false')
 					 ->get();
 
-		return view('member.index', compact('categories', 'articles', 'users'));
+		return view('member.index', compact('categories', 'articles', 'users', 'collaborators'));
 	}
 
 	public function getSettings()

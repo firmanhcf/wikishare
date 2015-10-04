@@ -22,7 +22,8 @@
             
             <ul class="nav nav-tabs pull-right">
               <li><a href="#revenue-chart" data-toggle="tab"><i class="fa fa-pencil"></i> Tulis Artikel</a></li>
-              <li class="active"><a href="#sales-chart" data-toggle="tab">Daftar Artikel</a></li>
+              <li><a href="#collaborator-chart" data-toggle="tab">Artikel Kolaborasi</a></li>
+              <li class="active"><a href="#sales-chart" data-toggle="tab">Artikel Saya</a></li>
               <li class="pull-left header"><i class="fa fa-file-text"></i> Manajemen Artikel</li>
             </ul>
             <div class="tab-content">
@@ -67,8 +68,37 @@
                       <input type="submit" class="btn btn-primary pull-right" id="submit-button" value="Kirim" >
                     </div>
                   </div>
-                </form>
-                
+                </form> 
+              </div>
+
+              <div class="tab-pane" id="collaborator-chart" style="position: relative; min-height: 200px; width: 1046px; overflow: hidden;">
+
+                @if(count($collaborators)>0)
+                @foreach($collaborators as $item)
+                  <div class="post" style="margin:5px;">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="{{is_null($item->article->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->article->user->photo)}}" alt="user image">
+                          <span class="username">
+                            <a href="{{route('article.edit', ['id' => $item->article->id])}}">{{$item->article->title}}</a>
+                          </span>
+                      <span class="description">Ditulis oleh <b>{{$item->article->user->name}}</b> pada {{$item->article->created_at}}</span>
+                    </div>
+                    <!-- /.user-block -->
+                    <p style="word-break: break-all;word-wrap:break-word;">
+                      {!! substr(strip_tags($item->article->content), 0, 850)!!}...
+                    </p>
+                    <ul class="list-inline"> 
+                      <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->article->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
+                    </ul>
+                    <br>
+                  </div>
+                @endforeach
+                @else
+                  <div class="text-center" style="width: 1046px; height: 200px; display: table-cell; vertical-align: middle; margin:auto;">
+                    <p><b>Anda tidak memiliki artikel</b></p>
+                  </div>
+                  
+                @endif
               </div>
 
               <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; width: 1046px; overflow: hidden;">
@@ -101,7 +131,6 @@
                   </div>
                   
                 @endif
-                
               </div>
             </div>
           </div>

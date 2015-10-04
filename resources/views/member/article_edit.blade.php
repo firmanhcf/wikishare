@@ -48,7 +48,14 @@
                        {!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
 
                       </div>
-                      
+
+                      @if($article->user_id == Auth::user()-> id)
+                      <div class="form-group">
+                        <label>Kolaborator</label>
+                        <p></p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#collaboratorModal">Edit Kolaborator</button>
+                      </div>
+                      @endif
                     </div>
                 </div>
                 <div class="row" style="margin:5px;">
@@ -70,8 +77,63 @@
 @section('script')
 <script type="text/javascript">
   $(document).ready( function() {
-    $("#txtEditor").Editor();                   
+    $("#txtEditor").Editor();
+
+    var userArr = [];
+    function user_item_clicked(cb){
+      if(cb.checked){
+        userArr.push($(cb).attr('id').replace('user_',''));
+      }
+      else{
+        var selectedItem = userArr.indexOf($(cb).attr('id').replace('user_',''));
+        userArr.splice(selectedItem, 1);
+      }
+      $('#collaborator-input').val(JSON.stringify(userArr));
+
+      console.log($('#collaborator-input').val());
+    }               
   });
 </script>
 
+@endsection
+
+@section('modal')
+<div id="collaboratorModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Daftar Kolaborator</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          @foreach($users as $item)
+            <div class="col-md-4">
+              <div>
+                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;">
+                <div class="post user-list" style="margin:5px; float: left;">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="{{is_null($item->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->photo)}}" alt="user image">
+                        <span class="username">
+                          <a href="#">{{$item->name}}</a>
+                        </span>
+                    <span class="description">{{$item->username}}</span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          @endforeach
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="submit-user-button" data-dismiss="modal">Selesai</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
