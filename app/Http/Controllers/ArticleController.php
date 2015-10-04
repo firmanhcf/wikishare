@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\ArticleCollaborator;
 
 class ArticleController extends Controller {
 
@@ -36,6 +37,19 @@ class ArticleController extends Controller {
 		$article -> approval_status = 'pending';
 
 		if($article->save()){
+
+			if($request->has('collaborator')){
+				$collaborator = json_decode($request->collaborator);
+
+				foreach ($collaborator as $item) {
+					$collItem = new ArticleCollaborator();
+					$collItem -> article_id = $article->id;
+					$collItem -> user_id = $item;
+					$collItem -> save();
+				}
+
+			}
+
 			return redirect()
 			->back()
 			->with('success', 'Artikel telah dikirim untuk mendapatkan persetujuan administrator. Artikel akan segera dipublikasikan sesaat setelah disetujui oleh administrator.');

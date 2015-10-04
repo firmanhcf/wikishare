@@ -31,5 +31,7 @@
   @yield('content')
   @include('partials.footer')
   @yield('script')
+
+  @yield('modal')
 </body>
 </html>
