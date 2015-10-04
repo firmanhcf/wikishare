@@ -34,7 +34,9 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label>Judul Artikel</label>
-                       <input name="title" type="text" class="form-control">
+                       <input name="judul" type="text" class="form-control {{ $errors->has('judul')?'has-error':''}}" placeholder="Masukkan judul Artikel Anda">
+                       {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
+
                       </div>
 
                       <div class="form-group">
@@ -48,7 +50,8 @@
 
                       <div class="form-group">
                         <label>Isi Artikel</label>
-                        <textarea name="content" id="mytextarea"></textarea>
+                        <textarea name="isi" id="mytextarea" placeholder="Masukkan isi artikel Anda"></textarea>
+                        {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
                       </div>
                       
                     </div>
@@ -63,7 +66,7 @@
                 
               </div>
 
-              <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; display: table-cell; width: 1046px;">
+              <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; width: 1046px; overflow: hidden;">
 
                 @if(count($articles)>0)
                 @foreach($articles as $item)
@@ -76,8 +79,8 @@
                       <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}</span>
                     </div>
                     <!-- /.user-block -->
-                    <p style="word-break: break-all;word-wrap:break-word; max-height:10px; overflow: hidden;">
-                      {!! $item->content!!}
+                    <p style="word-break: break-all;word-wrap:break-word;">
+                      {!! substr(strip_tags($item->content), 0, 850)!!}...
                     </p>
                     <ul class="list-inline"> 
                       <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>

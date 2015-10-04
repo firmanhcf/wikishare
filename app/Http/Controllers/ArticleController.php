@@ -20,11 +20,17 @@ class ArticleController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+
+		$this->validate($request, 
+			['judul' => 'required',
+			'isi' => 'required'], 
+			['required' => 'Silahkan masukkan :attribute artikel Anda']);
+
 		$article = new Article();
-		$article -> title = $request -> title;
-		$article -> slug = str_slug($request -> title, '-');
+		$article -> title = $request -> judul;
+		$article -> slug = str_slug($request -> judul, '-');
 		$article -> category_id = $request -> category_id;
-		$article -> content = $request -> content;
+		$article -> content = $request -> isi;
 		$article -> user_id = \Auth::user()->id;
 		$article -> article_status = 'unpublished';
 		$article -> approval_status = 'pending';
@@ -58,6 +64,11 @@ class ArticleController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
+		$this->validate($request, 
+			['judul' => 'required',
+			'isi' => 'required'], 
+			['required' => 'Silahkan masukkan :attribute artikel Anda']);
+		
 		$article = \App\Article::findOrFail($id);
 		$article -> title = $request -> title;
 		$article -> slug = str_slug($request -> title, '-');

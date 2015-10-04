@@ -29,7 +29,8 @@
                   <div class="col-lg-12">
                       <div class="form-group">
                         <label>Judul Artikel</label>
-                       <input name="title" type="text" class="form-control" value="{{$article->title}}">
+                       <input name="judul" type="text" class="form-control {{ $errors->has('judul')?'has-error':''}}" value="{{$article->title}}">
+                       {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
                       </div>
 
                       <div class="form-group">
@@ -43,7 +44,9 @@
 
                       <div class="form-group">
                         <label>Isi Artikel</label>
-                        <textarea name="content" id="mytextarea">{{$article->content}}</textarea>
+                        <textarea name="isi" id="mytextarea">{{$article->content}}</textarea>
+                       {!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
+
                       </div>
                       
                     </div>
