@@ -60,7 +60,7 @@
                 </div>
                 <div class="row" style="margin:5px;">
                   <div class="col-lg-12">
-                    
+                    <input type="hidden" name="collaborator" id="collaborator-input" value="{{$coll_json}}">
                     <input type="submit" class="btn btn-primary pull-right" value="Perbarui">
                   </div>
                 </div>
@@ -76,10 +76,8 @@
 
 @section('script')
 <script type="text/javascript">
-  $(document).ready( function() {
-    $("#txtEditor").Editor();
-
-    var userArr = [];
+  var userArr = JSON.parse($('#collaborator-input').val());
+    console.log(userArr);
     function user_item_clicked(cb){
       if(cb.checked){
         userArr.push($(cb).attr('id').replace('user_',''));
@@ -91,8 +89,7 @@
       $('#collaborator-input').val(JSON.stringify(userArr));
 
       console.log($('#collaborator-input').val());
-    }               
-  });
+    }
 </script>
 
 @endsection
@@ -112,7 +109,7 @@
           @foreach($users as $item)
             <div class="col-md-4">
               <div>
-                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;">
+                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;" {{$item->is_collaborator}}>
                 <div class="post user-list" style="margin:5px; float: left;">
                   <div class="user-block">
                     <img class="img-circle img-bordered-sm" src="{{is_null($item->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->photo)}}" alt="user image">

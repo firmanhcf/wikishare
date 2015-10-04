@@ -70,7 +70,26 @@ class ArticleController extends Controller {
 		$users = \App\User::where('id','!=', \Auth::user()->id)
 					 ->where('admin', '=', 'false')
 					 ->get();
-		return view('member.article_edit', compact('categories', 'article', 'users'));
+		$collaborators = ArticleCollaborator::where('article_id', '=', $id)
+												 ->get();
+
+		foreach ($users as $item) {
+			$item['is_collaborator'] = '';
+			foreach ($collaborators as $coll) {
+				if($item->id == $coll->user_id){
+					$item['is_collaborator'] = 'checked';
+				}
+			}
+		}
+
+		$collArr = [];
+		foreach ($collaborators as $coll) {
+			array_push($collArr, $coll->user_id);
+		}
+
+		$coll_json = json_encode($collArr);
+
+		return view('member.article_edit', compact('categories', 'article', 'users','coll_json'));
 	}
 
 	/**
@@ -93,6 +112,20 @@ class ArticleController extends Controller {
 		$article -> content = $request -> isi;
 		$article -> article_status = 'unpublished';
 		$article -> approval_status = 'pending';
+
+
+		if($request->has('collaborator')){
+			$dell_coll = ArticleCollaborator::where('article_id', '=', $id)
+												 ->delete();
+			$collaborator = json_decode($request->collaborator);
+
+			foreach ($collaborator as $item) {
+				$collItem = new ArticleCollaborator();
+				$collItem -> article_id = $article->id;
+				$collItem -> user_id = $item;
+				$collItem -> save();
+			}
+		}
 
 		if($article->save()){
 			return redirect()
