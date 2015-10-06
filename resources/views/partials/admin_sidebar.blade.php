@@ -13,11 +13,29 @@
     
     <ul class="sidebar-menu">
       <li class="header">MENU</li>
+      @if(Auth::user()->admin==0)
       <li class="{{(Route::currentRouteName() == 'profile')?'active':''}}">
         <a href="{{route('profile')}}">
           <i class="fa fa-file-text"></i> <span>Artikel</span>
         </a>
       </li>
+      @else
+      <li class="{{(Route::currentRouteName() == 'admin.dashboard')?'active':''}}">
+        <a href="{{route('admin.dashboard')}}">
+          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="{{(Route::currentRouteName() == 'admin.member')?'active':''}}">
+        <a href="{{route('admin.member')}}">
+          <i class="fa fa-user"></i> <span>Member</span>
+        </a>
+      </li>
+      <li class="{{(Route::currentRouteName() == 'admin.article')?'active':''}}">
+        <a href="{{route('admin.article')}}">
+          <i class="fa fa-file-text"></i> <span>Artikel</span>
+        </a>
+      </li>
+      @endif
       <li class="{{(Route::currentRouteName() == 'member.settings.view')?'active':''}}">
         <a href="{{route('member.settings.view')}}">
           <i class="fa fa-gear"></i> <span>Pengaturan</span>

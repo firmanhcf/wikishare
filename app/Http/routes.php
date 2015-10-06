@@ -30,9 +30,12 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('artikel/{id}/edit', 		['as' => 'article.edit.action', 'uses' => 'ArticleController@update']);
 	Route::get('artikel/{id}/hapus', 		['as' => 'article.remove', 'uses' => 'ArticleController@destroy']);
 
-
 	Route::get('pengaturan', 				['as' => 'member.settings.view', 'uses' => 'MemberController@getSettings']);
 	Route::post('pengaturan/profil', 		['as' => 'member.settings.action', 'uses' => 'MemberController@postSettings']);
 	Route::post('pengaturan/password', 		['as' => 'member.settings.password', 'uses' => 'MemberController@postPassword']);
+	
+	Route::get('dashboard', 				['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
+	Route::get('members', 					['as' => 'admin.member', 'uses' => 'AdminMemberController@index']);
+	Route::get('articles', 					['as' => 'admin.article', 'uses' => 'AdminArticleController@index']);
 	
 });
