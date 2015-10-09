@@ -35,7 +35,16 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('pengaturan/password', 		['as' => 'member.settings.password', 'uses' => 'MemberController@postPassword']);
 	
 	Route::get('dashboard', 				['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
+
+
 	Route::get('members', 					['as' => 'admin.member', 'uses' => 'AdminMemberController@index']);
+	Route::post('member', 					['as' => 'admin.member.add', 'uses' => 'AdminMemberController@store']);
+	Route::post('member/{id}/password', 	['as' => 'admin.member.password', 'uses' => 'AdminMemberController@password']);
+	Route::post('member/{id}/block', 		['as' => 'admin.member.block', 'uses' => 'AdminMemberController@block']);
+	Route::post('member/{id}/unblock', 		['as' => 'admin.member.unblock', 'uses' => 'AdminMemberController@unblock']);
+	Route::get('member/{id}/edit', 			['as' => 'admin.member.edit.view', 'uses' => 'AdminMemberController@edit']);
+	Route::post('member/{id}/edit', 		['as' => 'admin.member.edit.action', 'uses' => 'AdminMemberController@update']);
+
 	Route::get('articles', 					['as' => 'admin.article', 'uses' => 'AdminArticleController@index']);
 	
 });

@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\ArticleCategory;
 
 class AdminArticleController extends Controller {
 
@@ -14,17 +15,49 @@ class AdminArticleController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.article.index');
+		$categories = ArticleCategory::get();
+		$allArticles = \App\Article::get();
+		$myArticles = \App\Article::where('user_id','=',\Auth::user()->id)
+								->orderBy('created_at', 'desc')
+								->get();
+		$collaborators = \App\ArticleCollaborator::where('user_id','=',\Auth::user()->id)
+								->orderBy('created_at', 'desc')
+								->get();
+		$users = \App\User::where('id','!=', \Auth::user()->id)
+					 ->where('admin', '=', 'false')
+					 ->get();
+
+		return view('admin.article.index', compact('categories', 'allArticles','myArticles', 'users', 'collaborators'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	public function acceptArticle($id){
+		$article = App\Article::findOrFail($id);
+		$article -> approval_status = 'accepted';
+		if($article ->save()){
+			return redirect() ->back()
+							  ->with('success', 'Artikel telah disetujui dan dipublikasikan di halaman Wiki Share');
+		}
+
+		return redirect()
+			->back()
+			->withErrors([
+				'err_msg' => 'Terjadi kesalahan saat menyetujui Artikel, silahkan coba kembali beberapa saat lagi.',
+			]);
+	}
+
+	public function rejectArticle($id){
+		$article = App\Article::findOrFail($id);
+		$article -> approval_status = 'rejected';
+		if($article ->save()){
+			return redirect() ->back()
+							  ->with('success', 'Artikel telah ditolak');
+		}
+
+		return redirect()
+			->back()
+			->withErrors([
+				'err_msg' => 'Terjadi kesalahan saat menolak Artikel, silahkan coba kembali beberapa saat lagi.',
+			]);
 	}
 
 	/**
@@ -32,20 +65,27 @@ class AdminArticleController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function storeCategory(Request $request)
 	{
-		//
-	}
+		$this->validate($request, 
+			['nama' => 'required'], 
+			['required' => 'Silahkan masukkan :attribute kategory Anda']);
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
+		$category = new ArticleCategory();
+		$category -> title = $request -> judul;
+		$category -> slug = str_slug($request -> judul, '-');
+
+		if($category->save()){
+			return redirect()
+			->back()
+			->with('success', 'Kategori Artikel telah disimpan.');
+		}
+
+		return redirect()
+			->back()
+			->withErrors([
+				'err_msg' => 'Terjadi kesalahan saat memperbarui kategori artikel, silahkan coba kembali beberapa saat lagi.',
+			]);
 	}
 
 	/**
@@ -54,9 +94,10 @@ class AdminArticleController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function editCategory($id)
 	{
-		//
+		$category = ArticleCategory::findOrFail($id);
+		return view('admin.article.create_edit_category', compact('category'));
 	}
 
 	/**
@@ -65,9 +106,27 @@ class AdminArticleController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function updateCategory($id, Request $request)
 	{
-		//
+		$this->validate($request, 
+			['nama' => 'required'], 
+			['required' => 'Silahkan masukkan :attribute kategory Anda']);
+
+		$category = ArticleCategory::findOrFail($id);
+		$category -> title = $request -> judul;
+		$category -> slug = str_slug($request -> judul, '-');
+
+		if($category->save()){
+			return redirect()
+			->back()
+			->with('success', 'Kategori Artikel telah diperbarui.');
+		}
+
+		return redirect()
+			->back()
+			->withErrors([
+				'err_msg' => 'Terjadi kesalahan saat memperbarui kategori artikel, silahkan coba kembali beberapa saat lagi.',
+			]);
 	}
 
 	/**
@@ -76,9 +135,14 @@ class AdminArticleController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroyCategory($id)
 	{
-		//
+		$allArticles = \App\Article::where('category_id','=', $id)
+									-> update(['category_id'=>2]);
+		$cat = \App\ArticleCategory::destroy($id);
+		return redirect()
+			->back()
+			->with('success', 'Kategori Artikel berhasil dihapus');
 	}
 
 }

@@ -16,6 +16,7 @@ class CreateArticleCategoriesTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
         });

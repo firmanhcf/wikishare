@@ -9,7 +9,8 @@ class AdminDashboardController extends Controller {
 
 	public function index()
 	{
-		return view('admin.dashboard');
+		$articles = \App\Article::where('approval_status','=','pending')->get();
+		return view('admin.dashboard', $articles);
 	}
 
 }

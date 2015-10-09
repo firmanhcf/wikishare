@@ -28,13 +28,13 @@
             <div class="tab-content">
               
               <div class="tab-pane" id="revenue-chart" style="position: relative; min-height: 200px;">
-                <form class="form-horizontal" action="" method="POST">
+                <form class="form-horizontal" action="{{route('admin.member.add')}}" method="POST">
                   <input name="_token" type="hidden" value="{{csrf_token()}}">
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label>Alamat Email*</label>
-                        <input name="alamat_email" type="text" class="form-control {{ $errors->has('alamat_email')?'has-error':''}}" placeholder="Masukkan alamat email member">
+                        <input name="alamat_email" type="text" type="email" class="form-control {{ $errors->has('alamat_email')?'has-error':''}}" placeholder="Masukkan alamat email member">
                         {!! $errors->first('alamat_email', '<label class="control-label has-error">:message</label>') !!}
                       </div>
                       <div class="form-group">
@@ -80,13 +80,29 @@
                       <td>{{($u->active==true)?'Aktif':'Terblokir'}}</td>
                       <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>
-                        <span data-toggle="tooltip" title="Reset Password"><button type="button" class="btn btn-default"><i class="fa fa-key"></i></button></span>
-                        <span data-toggle="tooltip" title="Detil Member"><button type="button" class="btn btn-info"><i class="fa fa-info"></i></button></span>
-                        @if($u->active)
-                          <span data-toggle="tooltip" title="Blokir"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></span>
-                        @else
-                          <span data-toggle="tooltip" title="Aktifkan"><button type="button" class="btn btn-success"><i class="fa fa-check"></i></button></span>
-                        @endif
+                        <div class="form-group">
+                          <form class="form-horizontal" action="{{route('admin.member.password', ['id'=>$u->id])}}" method="POST">
+                            <input name="_token" type="hidden" value="{{csrf_token()}}">
+                            <span data-toggle="tooltip" title="Reset Password"><button type="submit" class="btn btn-default btn-sm"><i class="fa fa-key"></i></button></span>
+                          </form>
+                        </div>
+                        <div class="form-group">
+                          <span data-toggle="tooltip" title="Edit Member"><a href="{{route('admin.member.edit.view', ['id' => $u->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></a></span>
+                        </div>
+                        <div class="form-group">
+                          @if($u->active)
+                            <form class="form-horizontal" action="{{route('admin.member.block', ['id'=>$u->id])}}" method="POST">
+                              <input name="_token" type="hidden" value="{{csrf_token()}}">
+                              <span data-toggle="tooltip" title="Blokir"><button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button></span>
+                            </form>
+                          @else
+                            <form class="form-horizontal" action="{{route('admin.member.unblock', ['id'=>$u->id])}}" method="POST">
+                              <input name="_token" type="hidden" value="{{csrf_token()}}">
+                              <span data-toggle="tooltip" title="Aktifkan"><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i></button></span>
+                            </form>
+                          @endif
+                        </div>
+                        
                       </td>
                     </tr>
                     @endforeach
