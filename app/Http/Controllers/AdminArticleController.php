@@ -69,11 +69,11 @@ class AdminArticleController extends Controller {
 	{
 		$this->validate($request, 
 			['nama' => 'required'], 
-			['required' => 'Silahkan masukkan :attribute kategory Anda']);
+			['required' => 'Silahkan masukkan :attribute kategori Anda']);
 
 		$category = new ArticleCategory();
-		$category -> title = $request -> judul;
-		$category -> slug = str_slug($request -> judul, '-');
+		$category -> name = $request -> nama;
+		$category -> slug = str_slug($request -> nama, '-');
 
 		if($category->save()){
 			return redirect()
@@ -113,8 +113,8 @@ class AdminArticleController extends Controller {
 			['required' => 'Silahkan masukkan :attribute kategory Anda']);
 
 		$category = ArticleCategory::findOrFail($id);
-		$category -> title = $request -> judul;
-		$category -> slug = str_slug($request -> judul, '-');
+		$category -> name = $request -> nama;
+		$category -> slug = str_slug($request -> nama, '-');
 
 		if($category->save()){
 			return redirect()

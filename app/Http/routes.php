@@ -45,6 +45,9 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::get('member/{id}/edit', 			['as' => 'admin.member.edit.view', 'uses' => 'AdminMemberController@edit']);
 	Route::post('member/{id}/edit', 		['as' => 'admin.member.edit.action', 'uses' => 'AdminMemberController@update']);
 
-	Route::get('articles', 					['as' => 'admin.article', 'uses' => 'AdminArticleController@index']);
+	Route::get('articles', 							['as' => 'admin.article', 'uses' => 'AdminArticleController@index']);
+	Route::post('article/category/add', 			['as' => 'admin.article.category.add', 'uses' => 'AdminArticleController@storeCategory']);
+	Route::post('article/category/{id}/remove', 	['as' => 'admin.article.category.remove', 'uses' => 'AdminArticleController@destroyCategory']);
+	Route::post('article/category/{id}/edit', 		['as' => 'admin.article.category.edit', 'uses' => 'AdminArticleController@updateCategory']);
 	
 });
