@@ -18,7 +18,7 @@ return [
 	|
 	*/
 
-	'driver' => 'smtp',
+	'driver' => 'mandrill',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
 	|
 	*/
 
-	'username' => 'fattahfirman@gmail.com',
+	'username' => 'firmanhidayat@outlook.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
 	|
 	*/
 
-	'password' => 'fZA2UWAqVOF6uW1NNEMilQ',
+	'password' => 'c9-Edp04lHb4lMplHpuxwQ',
 
 	/*
 	|--------------------------------------------------------------------------
