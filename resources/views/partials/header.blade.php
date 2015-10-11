@@ -18,7 +18,11 @@
 						  <a class="dropdown-toggle" type="button" data-toggle="dropdown">{{Auth::user()->name}}
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
+						  	@if(Auth::user()->admin == 0)
 						    <li><a href="{{route('profile')}}">Profil</a></li>
+						    @else
+						    <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+						    @endif
 						    <li><a href="{{url('auth/logout')}}">Logout</a></li>
 						  </ul>
 						</div>

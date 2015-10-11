@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder {
 		]);
 
 		\App\User::create([
-			'name' => 'Firman',
+			'name' => 'Firman Hidayat',
 			'username' => 'firmanhcf',
 			'email' => 'firmanhcf@outlook.com',
 			'password' => bcrypt('wiki1234'),
@@ -25,24 +25,24 @@ class UserTableSeeder extends Seeder {
 		]);
 
 		\App\User::create([
-			'name' => 'Hidayat',
-			'username' => 'hidayat',
+			'name' => 'Dwi Putra',
+			'username' => 'dwiputra',
 			'email' => 'firmanhidayat@outlook.com',
 			'password' => bcrypt('wiki1234'),
 			'confirmation_code' => md5(microtime() . env('APP_KEY')),
 		]);
 
 		\App\User::create([
-			'name' => 'Choirul',
-			'username' => 'choirul',
+			'name' => 'Reni Sitompul',
+			'username' => 'renisitompul',
 			'email' => 'firman.fattah@hotmail.com',
 			'password' => bcrypt('wiki1234'),
 			'confirmation_code' => md5(microtime() . env('APP_KEY')),
 		]);
 
 		\App\User::create([
-			'name' => 'Fattah',
-			'username' => 'fattah',
+			'name' => 'Windy Sinaga',
+			'username' => 'windysinaga',
 			'email' => 'fattahfirman@gmail.com',
 			'password' => bcrypt('wiki1234'),
 			'confirmation_code' => md5(microtime() . env('APP_KEY')),

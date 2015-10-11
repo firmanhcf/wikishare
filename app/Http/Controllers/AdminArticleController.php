@@ -5,9 +5,16 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\ArticleCategory;
+use App\Article;
 
 class AdminArticleController extends Controller {
 
+
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -31,7 +38,7 @@ class AdminArticleController extends Controller {
 	}
 
 	public function acceptArticle($id){
-		$article = App\Article::findOrFail($id);
+		$article = Article::findOrFail($id);
 		$article -> approval_status = 'accepted';
 		if($article ->save()){
 			return redirect() ->back()
@@ -46,7 +53,7 @@ class AdminArticleController extends Controller {
 	}
 
 	public function rejectArticle($id){
-		$article = App\Article::findOrFail($id);
+		$article = Article::findOrFail($id);
 		$article -> approval_status = 'rejected';
 		if($article ->save()){
 			return redirect() ->back()

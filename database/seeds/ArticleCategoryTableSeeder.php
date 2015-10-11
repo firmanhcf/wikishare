@@ -8,11 +8,33 @@ class ArticleCategoryTableSeeder extends Seeder {
 	{
 
 		\App\ArticleCategory::create([
-			'name' => 'Umum'
+			'name' => 'Arsitektur',
+			'slug' => 'arsitektur'
 		]);
 
 		\App\ArticleCategory::create([
-			'name' => 'Lain-lain'
+			'name' => 'Bisnis',
+			'slug' => 'bisnis'
+		]);
+
+		\App\ArticleCategory::create([
+			'name' => 'Hiburan',
+			'slug' => 'hiburan'
+		]);
+
+		\App\ArticleCategory::create([
+			'name' => 'Ide',
+			'slug' => 'ide'
+		]);
+
+		\App\ArticleCategory::create([
+			'name' => 'Lain-lain',
+			'slug' => 'lain-lain'
+		]);
+
+		\App\ArticleCategory::create([
+			'name' => 'Umum',
+			'slug' => 'umum'
 		]);
 	}
 

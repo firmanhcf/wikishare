@@ -1,5 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use App\User;
+use App\Article;
+use App\ArticleCategory;
+
+use Illuminate\Http\Request;
+
 class HomeController extends Controller {
 
 	/*
@@ -30,22 +36,57 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('front.home');
+		$categories = ArticleCategory::orderBy('created_at', 'asc')
+								     ->take(5)
+								     ->get();
+		$articles = Article::where('approval_status', '=', 'accepted')
+						   ->orderBy('created_at', 'desc')
+						   ->paginate(3);
+		return view('front.home', compact('categories', 'articles'));
 	}
 
 	public function article()
 	{
-		return view('front.article');
+		$categories = ArticleCategory::get();
+		$articles = Article::where('approval_status', '=', 'accepted')
+						   ->orderBy('created_at', 'desc')
+						   ->take(5)
+						   ->get();
+		return view('front.article', compact('categories','articles'));
 	}
 
-	public function detail()
+	public function detail($id, $slug)
 	{
-		return view('front.detail');
+		$article = Article::findOrFail($id);
+		$categories = ArticleCategory::orderBy('created_at', 'asc')
+								     ->take(5)
+								     ->get();
+		$related = Article::where('approval_status', '=', 'accepted')
+						   ->where('id','!=',$id)
+						   ->where('category_id','=',$article->category_id)
+						   ->orderBy('created_at', 'desc')
+						   ->take(5)
+						   ->get();
+		
+		return view('front.detail', compact('article', 'categories', 'related'));
 	}
 
-	public function search()
+	public function search(Request $request)
 	{
-		return view('front.search');
+		$categories = ArticleCategory::orderBy('created_at', 'asc')
+								     ->take(5)
+								     ->get();
+		$queryBuilder = Article::query();
+		if($request->has('kategori')){
+			$queryBuilder -> category($request->kategori);
+		}
+
+		if($request->has('q')){
+			$queryBuilder -> text($request->q);
+		}
+
+		$articles = $queryBuilder -> paginate(3);
+		return view('front.search', compact('articles','categories'));
 	}
 
 }

@@ -76,18 +76,21 @@
                 @foreach($myArticles as $item)
                   <div class="post" style="margin:5px;">
                     <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="{{is_null($item->article->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->article->user->photo)}}" alt="user image">
+                      <img class="img-circle img-bordered-sm" src="{{is_null($item->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->user->photo)}}" alt="user image">
                           <span class="username">
-                            <a href="{{route('article.edit', ['id' => $item->article->id])}}">{{$item->article->title}}</a>
+                            <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
                           </span>
-                      <span class="description">Ditulis oleh <b>{{$item->article->user->name}}</b> pada {{$item->article->created_at}}</span>
+                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}</span>
                     </div>
                     <!-- /.user-block -->
                     <p style="word-break: break-all;word-wrap:break-word;">
-                      {!! substr(strip_tags($item->article->content), 0, 850)!!}...
+                      {!! substr(strip_tags($item->content), 0, 850)!!}...
                     </p>
                     <ul class="list-inline"> 
-                      <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->article->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
+                      <li class="pull-right"><a class="btn btn-sm btn-danger" href="{{route('article.remove', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</a>
+                      <li class="pull-right"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
+
+                      </li>
                     </ul>
                     <br>
                   </div>
@@ -102,34 +105,84 @@
 
               <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; width: 100%; overflow: hidden;">
 
-                @if(count($allArticles)>0)
-                @foreach($allArticles as $item)
-                  <div class="post" style="margin:5px;">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="{{is_null($item->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->user->photo)}}" alt="user image">
-                          <span class="username">
-                            <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
-                          </span>
-                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <p style="word-break: break-all;word-wrap:break-word;">
-                      {!! substr(strip_tags($item->content), 0, 850)!!}...
-                    </p>
-                    <ul class="list-inline"> 
-                      <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
-                      <li class="pull-right"><a class="btn btn-sm btn-danger" href="{{route('article.remove', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</a>
-                      </li>
-                    </ul>
-                    <br>
-                  </div>
-                @endforeach
-                @else
-                  <div class="text-center" style="width: 1046px; height: 200px; display: table-cell; vertical-align: middle; margin:auto;">
-                    <p><b>Anda tidak memiliki artikel</b></p>
-                  </div>
-                  
-                @endif
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Judul</th>
+                      <th>Author</th>
+                      <th>Status</th>
+                      <th>Dibuat Tanggal</th>
+                      <th>Ubah Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($allArticles as $i => $u)
+                    <tr>
+                      <td>{{($i+1)}}</td>
+                      <td>{{$u->title}}</td>
+                      <td>{{$u->user->name}}</td>
+                      <td>
+                        @if($u->approval_status == 'pending')
+                          Menunggu Persetujuan
+                        @elseif($u->approval_status == 'accepted')
+                          Di-<i>publish</i>
+                        @else
+                          Ditolak
+                        @endif
+                      </td>
+                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
+                      <td>
+
+                        <ul class="list-inline"> 
+                          @if($u->approval_status == 'pending')
+                              <li class="pull-right">
+                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
+                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
+                                </form>
+                                
+                              </li>
+                              <li class="pull-right">
+                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
+                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                                </form>
+                              </li>
+                          @elseif($u->approval_status == 'accepted')
+                              <li class="pull-right">
+                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
+                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
+                                </form>
+                                
+                              </li>
+                          @else
+                            <li class="pull-right">
+                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
+                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                                </form>
+                              </li>
+                          @endif
+                          
+                          
+                        </ul>
+                      </td>
+                      <td>
+                        
+                        <ul class="list-inline"> 
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><a class="btn btn-sm btn-default" href="{{route('article.remove', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-trash"></i></span></a>
+                          </li>
+                          <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
+                          
+                        </ul>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -221,6 +274,7 @@
 @section('script')
 <script type="text/javascript">
 
+  $("#example1").DataTable();
   var userArr = [];
   function user_item_clicked(cb){
     if(cb.checked){
@@ -277,4 +331,13 @@
 
   </div>
 </div>
+@endsection
+@section('style')
+<style type="text/css">
+  .list-inline > li {
+    display: inline-block;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+</style>
 @endsection

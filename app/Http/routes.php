@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', 				['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('/home', 			['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('kategori-artikel', 			['as' => 'article', 'uses' => 'HomeController@article']);
-Route::get('artikel/detil', 	['as' => 'detail', 'uses' => 'HomeController@detail']);
-Route::get('pencarian', 		['as' => 'search', 'uses' => 'HomeController@search']);
+Route::get('/', 					['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/home', 				['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('kategori-artikel', 		['as' => 'article', 'uses' => 'HomeController@article']);
+Route::get('artikel/{id}/{slug}', 	['as' => 'detail', 'uses' => 'HomeController@detail']);
+Route::get('pencarian', 			['as' => 'search', 'uses' => 'HomeController@search']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -49,5 +49,7 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('article/category/add', 			['as' => 'admin.article.category.add', 'uses' => 'AdminArticleController@storeCategory']);
 	Route::post('article/category/{id}/remove', 	['as' => 'admin.article.category.remove', 'uses' => 'AdminArticleController@destroyCategory']);
 	Route::post('article/category/{id}/edit', 		['as' => 'admin.article.category.edit', 'uses' => 'AdminArticleController@updateCategory']);
+	Route::post('article/{id}/accept', 				['as' => 'admin.article.accept', 'uses' => 'AdminArticleController@acceptArticle']);
+	Route::post('article/{id}/reject', 				['as' => 'admin.article.reject', 'uses' => 'AdminArticleController@rejectArticle']);
 	
 });

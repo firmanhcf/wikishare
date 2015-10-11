@@ -13,4 +13,8 @@ class ArticleCategory extends Model {
 	 */
 	protected $fillable = ['name', 'slug'];
 
+	public function article(){
+		return $this->hasMany('App\Article', 'category_id')
+					->where('articles.approval_status','=','accepted');
+	}
 }

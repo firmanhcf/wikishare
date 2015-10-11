@@ -7,33 +7,24 @@
 		<div id="main" class="container">
 			<div class="row">
 				<div class="9u">
+					@if(count($articles)>0)
+					@foreach($articles as $a)
 					<section>
 						<header>
-							<h2>There is no one who loves pain itself</h2>
-							<span class="byline">Oleh Firman Hidayat CF&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>22 September 2015</span></span>
+							<h2>{{$a->title}}</h2>
+							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$a->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$a->created_at}}</span></span>
 						</header>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum...</p>
-						<a href="#" class="button">Lebih Detil</a>
+						<p>{!! substr(strip_tags($a->content), 0, 850)!!}...</p>
+						<a href="{{route('detail',['id'=>$a->id, 'slug'=>$a->slug])}}" class="button">Lihat Selengkapnya</a>
 						<hr />
 					</section>
+					@endforeach
 					<section>
-						<header>
-							<h2>Who seeks after it and wants to have it</h2>
-							<span class="byline">Oleh Dwi Putra&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>22 September 2015</span></span>
-						</header>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum...</p>
-						<a href="#" class="button">Lebih Detil</a>
-						<hr />
+						{!! $articles->render() !!}
 					</section>
-					<section>
-						<header>
-							<h2>Simply because it is pain</h2>
-							<span class="byline">Oleh Firman Hidayat CF&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>22 September 2015</span></span>
-						</header>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum...</p>
-						<a href="#" class="button">Lebih Detil</a>
-						<hr />
-					</section>
+					@else
+						<p>Artikel tidak ditemukan</p>
+					@endif
 				</div>
 				<div class="3u">
 					<section class="sidebar">
@@ -41,11 +32,9 @@
 							<h2>Kategori </h2>
 						</header>
 						<ul class="style1">
-							<li><a href="#">Kategori Pertama</a></li>
-							<li><a href="#">Kategori Kedua</a></li>
-							<li><a href="#">Kategori Ketiga</a></li>
-							<li><a href="#">Kategori Keempat</a></li>
-							<li><a href="#">Kategori Kelima</a></li>
+							@foreach($categories as $c)
+							<li><a href="{{route('search', ['kategori' => $c->id])}}">{{$c->name}}</a></li>
+							@endforeach
 							<li><a href="{{route('article')}}">Lihat semua &rarr;</a></li>
 						</ul>
 					</section>
@@ -54,4 +43,16 @@
 		</div>
 	</div>
 <!-- /Main -->
+@endsection
+
+@section('style')
+<style type="text/css">
+	.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+	    z-index: 2;
+	    color: #FFF;
+	    cursor: default;
+	    background-color: #DE3D27;
+	    border-color: #DE3D27;
+	}
+</style>
 @endsection

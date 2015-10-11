@@ -17,4 +17,14 @@ class Article extends Model {
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function scopeCategory($query, $id){
+        return $query -> where('category_id', '=', $id)
+                      -> where('approval_status', '=', 'accepted');
+    }
+
+    public function scopeText($query, $q){
+        return $query -> where('title', 'like', '%'.$q.'%')
+        			  -> orWhere('content', 'like', '%'.$q.'%');
+    }
 }

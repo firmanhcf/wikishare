@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function index()
 	{
-		$articles = \App\Article::where('approval_status','=','pending')->get();
-		return view('admin.dashboard', $articles);
+		$allArticles = \App\Article::where('approval_status','=','pending')->get();
+		return view('admin.dashboard', compact('allArticles'));
 	}
 
 }
