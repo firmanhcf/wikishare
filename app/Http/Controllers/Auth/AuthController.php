@@ -55,7 +55,7 @@ class AuthController extends Controller {
 
 		if(!$user){
 			return redirect()->back()->withErrors([
-						'err_msg' => 'Akun Anda diblokir user, silahkan hubungi administrator.',
+						'err_msg' => 'Akun Anda diblokir oleh Admin, silahkan hubungi admin untuk mengaktifkan kembali.',
 					]);
 		}
 
