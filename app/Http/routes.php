@@ -26,9 +26,9 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 
 	Route::get('artikel', 					['as' => 'profile', 'uses' => 'MemberController@index']);
 	Route::post('artikel', 					['as' => 'article.store', 'uses' => 'ArticleController@store']);
-	Route::get('artikel/{id}/edit', 		['as' => 'article.edit', 'uses' => 'ArticleController@edit']);
-	Route::post('artikel/{id}/edit', 		['as' => 'article.edit.action', 'uses' => 'ArticleController@update']);
-	Route::get('artikel/{id}/hapus', 		['as' => 'article.remove', 'uses' => 'ArticleController@destroy']);
+	Route::get('artikel/{id}/edit/view', 	['as' => 'article.edit', 'uses' => 'ArticleController@edit']);
+	Route::post('artikel/{id}/edit/action', ['as' => 'article.edit.action', 'uses' => 'ArticleController@update']);
+	Route::get('artikel/{id}/hapus/action', ['as' => 'article.remove', 'uses' => 'ArticleController@destroy']);
 
 	Route::get('pengaturan', 				['as' => 'member.settings.view', 'uses' => 'MemberController@getSettings']);
 	Route::post('pengaturan/profil', 		['as' => 'member.settings.action', 'uses' => 'MemberController@postSettings']);
