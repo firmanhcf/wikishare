@@ -5,6 +5,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use App\User;
 
 class AuthController extends Controller {
 
@@ -47,6 +48,16 @@ class AuthController extends Controller {
 		$this->validate($request, [
 			'username' => 'required', 'password' => 'required',
 		], ['required' => 'Silahkan masukkan :attribute Anda']);
+
+		$user = User::where('username', '=', $request->username)
+					->where('active','=',true)
+					->first();
+
+		if(!$user){
+			return redirect()->back()->withErrors([
+						'err_msg' => 'Akun Anda diblokir user, silahkan hubungi administrator.',
+					]);
+		}
 
 		$credentials = $request->only('username', 'password');
 
