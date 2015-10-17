@@ -53,33 +53,20 @@
                         <ul class="list-inline"> 
                           @if($u->approval_status == 'pending')
                               <li class="pull-right">
-                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
-                                </form>
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
                                 
                               </li>
                               <li class="pull-right">
-                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
-                                </form>
+                                <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
                               </li>
                           @elseif($u->approval_status == 'accepted')
                               <li class="pull-right">
-                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
-                                </form>
-                                
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
                               </li>
                           @else
                             <li class="pull-right">
-                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
-                                </form>
-                              </li>
+                              <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                            </li>
                           @endif
                           
                           
@@ -88,8 +75,7 @@
                       <td>
                         
                         <ul class="list-inline"> 
-                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><a class="btn btn-sm btn-default" href="{{route('article.remove', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-trash"></i></span></a>
-                          </li>
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button data-toggle="modal" data-target="#delArticleModal" type="button" class="btn btn-sm btn-default" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
                           
                         </ul>
@@ -110,9 +96,39 @@
 @section('script')
   <script type="text/javascript">
     $("#example1").DataTable();
+
+    function deleteClick(url){
+      $('#submit-del-art').attr('href', url);
+    }
   </script>
+
+
   
 @endsection
 
 @section('modal')
+  <div id="delArticleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Konfirmasi</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>Apakah anda yakin akan menghapus artikel ini?</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-primary" id="submit-del-art" href="">Ya</a>
+          <button type="button" class="btn btn-danger" id="submit-del-button" data-dismiss="modal">Batal</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 @endsection

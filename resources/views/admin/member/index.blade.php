@@ -51,7 +51,34 @@
                   </div>
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
-                      <input type="submit" class="btn btn-primary pull-right" id="submit-button" value="Buat" >
+                      <button type="button" data-toggle="modal" data-target="#saveUserModal" class="btn btn-primary pull-right" id="submit-button">Buat</button>
+                    </div>
+                  </div>
+
+                  <div id="saveUserModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Konfirmasi</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Apakah Anda yakin akan menambahkan akun ini?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          
+                            <input type="submit" class="btn btn-primary" value="Ya">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                          
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </form> 
@@ -81,25 +108,17 @@
                       <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>
                         <div class="form-group">
-                          <form class="form-horizontal" action="{{route('admin.member.password', ['id'=>$u->id])}}" method="POST">
-                            <input name="_token" type="hidden" value="{{csrf_token()}}">
-                            <span data-toggle="tooltip" title="Reset Password"><button type="submit" class="btn btn-default btn-sm"><i class="fa fa-key"></i></button></span>
-                          </form>
+                            <span data-toggle="tooltip" title="Reset Password"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.member.password', ['id'=>$u->id])}}', 'Apakah Anda yakin akan mereset password member ini?')" class="btn btn-default btn-sm"><i class="fa fa-key"></i></button></span>
                         </div>
                         <div class="form-group">
                           <span data-toggle="tooltip" title="Edit Member"><a href="{{route('admin.member.edit.view', ['id' => $u->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></a></span>
                         </div>
                         <div class="form-group">
                           @if($u->active)
-                            <form class="form-horizontal" action="{{route('admin.member.block', ['id'=>$u->id])}}" method="POST">
-                              <input name="_token" type="hidden" value="{{csrf_token()}}">
-                              <span data-toggle="tooltip" title="Blokir"><button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button></span>
-                            </form>
+                            
+                              <span data-toggle="tooltip" title="Blokir"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.member.block', ['id'=>$u->id])}}', 'Apakah Anda yakin akan memblokir member ini?')" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button></span>
                           @else
-                            <form class="form-horizontal" action="{{route('admin.member.unblock', ['id'=>$u->id])}}" method="POST">
-                              <input name="_token" type="hidden" value="{{csrf_token()}}">
-                              <span data-toggle="tooltip" title="Aktifkan"><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i></button></span>
-                            </form>
+                              <span data-toggle="tooltip" title="Aktifkan"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.member.unblock', ['id'=>$u->id])}}', 'Apakah Anda yakin akan mengaktifkan member ini kembali?')"  class="btn btn-success btn-sm"><i class="fa fa-check"></i></button></span>
                           @endif
                         </div>
                         

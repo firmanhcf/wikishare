@@ -54,17 +54,38 @@
                         {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
                       </div>
                       
-                      <div class="form-group">
-                        <label>Kolaborator</label>
-                        <p>Anda juga bisa menambahkan member lain untuk dapat mengedit artikel yang Anda buat</p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#collaboratorModal">Tambah Kolaborator</button>
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
                       <input type="hidden" name="collaborator" id="collaborator-input">
-                      <input type="submit" class="btn btn-primary pull-right" id="submit-button" value="Kirim" >
+                      <button type="button" data-toggle="modal" data-target="#saveArticleModal" class="btn btn-primary pull-right" id="submit-button"> Kirim </button>
+                    </div>
+                  </div>
+
+                  <div id="saveArticleModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Konfirmasi</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Apakah Anda yakin akan menyimpan artikel ini?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" value="Ya" >
+                          <button type="button" class="btn btn-danger" id="submit-del-button" data-dismiss="modal">Batal</button>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </form> 
@@ -91,7 +112,7 @@
                       {!! substr(strip_tags($item->content), 0, 850)!!}...
                     </p>
                     <ul class="list-inline"> 
-                      <li class="pull-right"><a class="btn btn-sm btn-danger" href="{{route('article.remove', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</a>
+                      <li class="pull-right"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</button>
                       <li class="pull-right"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
 
                       </li>
@@ -142,33 +163,20 @@
                         <ul class="list-inline"> 
                           @if($u->approval_status == 'pending')
                               <li class="pull-right">
-                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
-                                </form>
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
                                 
                               </li>
                               <li class="pull-right">
-                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
-                                </form>
+                                <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
                               </li>
                           @elseif($u->approval_status == 'accepted')
                               <li class="pull-right">
-                                <form action="{{route('admin.article.reject', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Tolak Artikel"><button type="submit" class="btn btn-sm btn-danger" class="link-black text-sm"><i class="fa fa-times"></i></span></button>
-                                </form>
-                                
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
                               </li>
                           @else
                             <li class="pull-right">
-                                <form action="{{route('admin.article.accept', ['id' => $u->id])}}" method="POST">
-                                  <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                  <span data-toggle="tooltip" title="Publish Artikel"><button type="submit" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
-                                </form>
-                              </li>
+                              <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                            </li>
                           @endif
                           
                           
@@ -177,7 +185,7 @@
                       <td>
                         
                         <ul class="list-inline"> 
-                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><a class="btn btn-sm btn-default" href="{{route('article.remove', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-trash"></i></span></a>
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
                           </li>
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
                           
@@ -213,7 +221,32 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary pull-right">Simpan</button>
+                      <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#saveCatModal">Simpan</button>
+                    </div>
+                  </div>
+
+                  <div id="saveCatModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Konfirmasi</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Apakah Anda yakin akan menyimpan kategori ini?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" value="Ya">
+                          <button type="button" class="btn btn-danger" id="submit-del-button" data-dismiss="modal">Batal</button>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </form>
@@ -227,10 +260,7 @@
                     <div class="col-md-5">
                        
                         <div class="form-group pull-right">
-                          <form action="{{route('admin.article.category.remove', ['id' => $c->id])}}" method="POST">
-                            <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <span data-toggle="tooltip" title="Hapus Kategori"><button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></span>
-                          </form>
+                            <span data-toggle="tooltip" title="Hapus Kategori"><button type="submit" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.category.remove', ['id' => $c->id])}}', 'Semua artikel yang termasuk dalam kategori ini akan dipindahkan ke kategori Lain-lain. Apakah Anda yakin akan menghapus kategori ini?')"><i class="fa fa-trash"></i></button></span>
                         </div>
 
                         <div class="form-group pull-right">
@@ -292,49 +322,38 @@
 
     console.log($('#collaborator-input').val());
   }
-</script>
 
+    function deleteClick(url){
+      $('#submit-del-art').attr('href', url);
+    }
+  </script>
 @endsection
 
 @section('modal')
-<div id="collaboratorModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div id="delArticleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambah Kolaborator</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          @foreach($users as $item)
-            <div class="col-md-4">
-              <div>
-                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;">
-                <div class="post user-list" style="margin:5px; float: left;">
-                  <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src="{{is_null($item->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->photo)}}" alt="user image">
-                        <span class="username">
-                          <a href="#">{{$item->name}}</a>
-                        </span>
-                    <span class="description">{{$item->username}}</span>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          @endforeach
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Konfirmasi</h4>
         </div>
-        
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p id="del-message-content">Apakah Anda yakin akan menghapus artikel ini?</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-primary" id="submit-del-art" href="">Ya</a>
+          <button type="button" class="btn btn-danger" id="submit-del-button" data-dismiss="modal">Batal</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="submit-user-button" data-dismiss="modal">Selesai</button>
-      </div>
-    </div>
 
+    </div>
   </div>
-</div>
 @endsection
 @section('style')
 <style type="text/css">

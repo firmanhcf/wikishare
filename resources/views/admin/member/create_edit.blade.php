@@ -48,8 +48,35 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Perbarui Profil</button>
+                <button type="button" data-toggle="modal" data-target="#editUserModal" class="btn btn-primary">Perbarui Profil</button>
               </div>
+
+              <div id="editUserModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Konfirmasi</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Apakah Anda yakin akan memperbarui informasi akun ini?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          
+                            <input type="submit" class="btn btn-primary" value="Ya">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                          
+                        </div>
+                      </div>
+
+                    </div>
+                  </div
             </form>
           </div>
         </div>
