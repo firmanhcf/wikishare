@@ -130,7 +130,9 @@ class ArticleController extends Controller {
 
 		if($article->save()){
 
-			$update = UpdateArticleLog::where('user_id','=', \Auth::user()->id)->first();
+			$update = UpdateArticleLog::where('user_id','=', \Auth::user()->id)
+										->where('article_id', '=', $article->id)
+										->first();
 
 			if(!$update){
 				$update = new UpdateArticleLog();
