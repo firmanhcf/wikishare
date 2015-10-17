@@ -26,13 +26,31 @@
 						
 						@if(count($article->updateLog)>0)
 							<hr>
-							<b>Kontributor</b>
+							<span class="contributor-title">Riwayat Editorial</span>
 							<br>
-							<p>
+							<div class="row contributor-list">
 								@foreach($article->updateLog as $index => $l)
-									{{$l->user->name}}@if($index < count($article->updateLog)-1),@endif
+								<div class="u3 contributor-item"> 
+									<ul class="edit-item">
+										<li class="edit-member">{{$l->user->name}}</li> 
+										<li class="edit-date">
+											<i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($l->updated_at))}}
+										</li> 
+										<li class="edit-status">{{($article->user->id==$l->user->id)?'Author':'Kontributor'}}</li> 
+									</ul>
+								</div>
 								@endforeach
-							</p>
+								<div class="u3 contributor-item"> 
+									<ul class="edit-item">
+										<li class="edit-member">{{$article->user->name}}</li> 
+										<li class="edit-date">
+											<i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($article->created_at))}}
+										</li> 
+										<li class="edit-status">Author</li> 
+									</ul>
+								</div>
+							</div>
+							
 						@endif
 						
 
