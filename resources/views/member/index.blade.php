@@ -22,7 +22,6 @@
             
             <ul class="nav nav-tabs pull-right">
               <li><a href="#revenue-chart" data-toggle="tab"><i class="fa fa-pencil"></i> Tulis Artikel</a></li>
-              <li><a href="#collaborator-chart" data-toggle="tab">Artikel Kolaborasi</a></li>
               <li class="active"><a href="#sales-chart" data-toggle="tab">Artikel Saya</a></li>
               <li class="pull-left header"><i class="fa fa-file-text"></i> Manajemen Artikel</li>
             </ul>
@@ -52,53 +51,44 @@
                       <div class="form-group">
                         <label>Isi Artikel</label>
                         <textarea name="isi" id="mytextarea" placeholder="Masukkan isi artikel Anda"></textarea>
-                        {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>Kolaborator</label>
-                        <p>Anda juga bisa menambahkan member lain untuk dapat mengedit artikel yang Anda buat</p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#collaboratorModal">Tambah Kolaborator</button>
+                        {!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
                       </div>
                     </div>
                   </div>
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
                       <input type="hidden" name="collaborator" id="collaborator-input">
-                      <input type="submit" class="btn btn-primary pull-right" id="submit-button" value="Kirim" >
+                      <button type="button" data-toggle="modal" data-target="#newConfModal" class="btn btn-primary pull-right" id="submit-button">
+                        Publish
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="newConfModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Konfirmasi</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Artikel ini membutuhkan persetujuan Administrator. Apakah anda yakin akan mempublikasikan artikel ini?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" value="Ya">
+                          <button type="button" class="btn btn-danger" id="submit-user-button" data-dismiss="modal">Batal</button>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </form> 
-              </div>
-
-              <div class="tab-pane" id="collaborator-chart" style="position: relative; min-height: 200px; width: 1046px; overflow: hidden;">
-
-                @if(count($collaborators)>0)
-                @foreach($collaborators as $item)
-                  <div class="post" style="margin:5px;">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="{{is_null($item->article->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->article->user->photo)}}" alt="user image">
-                          <span class="username">
-                            <a href="{{route('article.edit', ['id' => $item->article->id])}}">{{$item->article->title}}</a>
-                          </span>
-                      <span class="description">Ditulis oleh <b>{{$item->article->user->name}}</b> pada {{$item->article->created_at}}</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <p style="word-break: break-all;word-wrap:break-word;">
-                      {!! substr(strip_tags($item->article->content), 0, 850)!!}...
-                    </p>
-                    <ul class="list-inline"> 
-                      <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->article->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
-                    </ul>
-                    <br>
-                  </div>
-                @endforeach
-                @else
-                  <div class="text-center" style="width: 1046px; height: 200px; display: table-cell; vertical-align: middle; margin:auto;">
-                    <p><b>Anda tidak memiliki artikel</b></p>
-                  </div>
-                  
-                @endif
               </div>
 
               <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; width: 1046px; overflow: hidden;">
@@ -111,7 +101,11 @@
                           <span class="username">
                             <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
                           </span>
-                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}</span>
+                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}
+                        @if(count($item->updateLog)>0)
+                        <span style="float:right;">Terakhir diedit oleh <b>{{$item->updateLog[0]->user->name}}</b></span>
+                        @endif
+                      </span>
                     </div>
                     <!-- /.user-block -->
                     <p style="word-break: break-all;word-wrap:break-word;">
@@ -119,7 +113,7 @@
                     </p>
                     <ul class="list-inline"> 
                       <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
-                      <li class="pull-right"><a class="btn btn-sm btn-danger" href="{{route('article.remove', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</a>
+                      <li class="pull-right"><button data-toggle="modal" data-target="#delArticleModal" type="button" class="btn btn-sm btn-danger" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</button>
                       </li>
                     </ul>
                     <br>
@@ -157,45 +151,37 @@
     $('#collaborator-input').val(JSON.stringify(userArr));
 
     console.log($('#collaborator-input').val());
+
+    
+  }
+
+  function deleteClick(url){
+      $('#submit-del-art').attr('href', url);
   }
 </script>
 
 @endsection
 
 @section('modal')
-<div id="collaboratorModal" class="modal fade" role="dialog">
+<div id="delArticleModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambah Kolaborator</h4>
+        <h4 class="modal-title">Konfirmasi</h4>
       </div>
       <div class="modal-body">
         <div class="row">
-          @foreach($users as $item)
-            <div class="col-md-4">
-              <div>
-                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;">
-                <div class="post user-list" style="margin:5px; float: left;">
-                  <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src="{{is_null($item->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->photo)}}" alt="user image">
-                        <span class="username">
-                          <a href="#">{{$item->name}}</a>
-                        </span>
-                    <span class="description">{{$item->username}}</span>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          @endforeach
+          <div class="col-md-12">
+            <p>Apakah anda yakin akan menghapus artikel ini?</p>
+          </div>
         </div>
-        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="submit-user-button" data-dismiss="modal">Selesai</button>
+        <a type="button" class="btn btn-primary" id="submit-del-art" href="">Ya</a>
+        <button type="button" class="btn btn-danger" id="submit-del-button" data-dismiss="modal">Batal</button>
       </div>
     </div>
 

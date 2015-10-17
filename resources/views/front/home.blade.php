@@ -11,7 +11,18 @@
 					<section>
 						<header>
 							<h2>{{$a->title}}</h2>
-							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$a->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$a->created_at}}</span></span>
+							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$a->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$a->created_at}}</span>
+							
+							<span style="float: right;">
+								@if(count($a->updateLog)>0)
+								Terakhir diedit oleh <b style="color:#aaa;">{{$a->updateLog[0]->user->name}}</b>
+								@endif
+								@if(Auth::check())
+								&nbsp;|&nbsp;
+								<a href="{{route('article.edit',['id'=>$a->id])}}"><i class="fa fa-pencil"></i>&nbsp;Edit Artikel</a>
+								@endif
+							</span>
+						</span>
 						</header>
 						<p>{!! substr(strip_tags($a->content), 0, 850)!!}...</p>
 						<a href="{{route('detail',['id'=>$a->id, 'slug'=>$a->slug])}}" class="button">Lihat Selengkapnya</a>

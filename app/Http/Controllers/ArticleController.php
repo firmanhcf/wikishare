@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Article;
 use App\ArticleCollaborator;
+use App\UpdateArticleLog;
 
 class ArticleController extends Controller {
 
@@ -128,9 +129,30 @@ class ArticleController extends Controller {
 		}
 
 		if($article->save()){
+
+			$update = UpdateArticleLog::where('user_id','=', \Auth::user()->id)->first();
+
+			if(!$update){
+				$update = new UpdateArticleLog();
+				$update->user_id = \Auth::user()->id;
+				$update->article_id = $article->id;
+				$update->count = 1;
+			}
+			else{
+				$update->count = $update->count+1;
+			}
+
+			if($update->save()){
+				return redirect()
+								->back()
+								->with('success', 'Artikel telah diperbarui. Artikel akan segera dipublikasikan sesaat setelah disetujui oleh administrator.');
+			}
+
 			return redirect()
-			->back()
-			->with('success', 'Artikel telah diperbarui. Artikel akan segera dipublikasikan sesaat setelah disetujui oleh administrator.');
+							->back()
+							->withErrors([
+								'err_msg' => 'Terjadi kesalahan saat memperbarui artikel, silahkan coba kembali beberapa saat lagi.',
+							]);
 		}
 
 		return redirect()

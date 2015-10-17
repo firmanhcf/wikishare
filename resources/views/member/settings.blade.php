@@ -48,7 +48,32 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Perbarui Profil</button>
+                <button type="button" data-toggle="modal" data-target="#setProfilModal" class="btn btn-primary">Perbarui Profil</button>
+              </div>
+
+              <div id="setProfilModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Konfirmasi</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Apakah anda yakin untuk memperbarui informasi profil Anda?</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="submit" class="btn btn-primary" value="Ya">
+                      <button type="button" class="btn btn-danger" id="submit-user-button" data-dismiss="modal">Batal</button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </form>
           </div>
@@ -79,7 +104,32 @@
               </div>
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Perbarui Password</button>
+                <button type="button" data-toggle="modal" data-target="#setPassModal" class="btn btn-primary">Perbarui Password</button>
+              </div>
+
+              <div id="setPassModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Konfirmasi</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Apakah anda yakin akan mengganti password Anda?</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="submit" class="btn btn-primary" value="Ya">
+                      <button type="button" class="btn btn-danger" id="submit-user-button" data-dismiss="modal">Batal</button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </form>
           </div>

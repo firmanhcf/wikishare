@@ -80,7 +80,11 @@
                           <span class="username">
                             <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
                           </span>
-                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}</span>
+                      <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}
+                        @if(count($item->updateLog)>0)
+                        <span style="float:right;">Terakhir diedit oleh <b>{{$item->updateLog[0]->user->name}}</b></span>
+                        @endif
+                      </span>
                     </div>
                     <!-- /.user-block -->
                     <p style="word-break: break-all;word-wrap:break-word;">

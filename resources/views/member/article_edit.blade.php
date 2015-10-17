@@ -1,30 +1,31 @@
 @extends('partials.admin_layout')
+
 @section('content')
-  <div class="content-wrapper" style="min-height: 700px;">
-    <section class="content-header">
-      <h1>
-        Edit Artikel
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Edit Artikel</li>
-      </ol>
-    </section>
+  <form class="form-horizontal" action="{{route('article.edit.action',['id'=> $article->id])}}" method="POST">
+    <div class="content-wrapper" style="min-height: 700px;">
+      <section class="content-header">
+        <h1>
+          Edit Artikel
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active">Edit Artikel</li>
+        </ol>
+      </section>
 
-    
-    <section class="content">
-      @include('partials.notification')
-      <div class="row">
-        
-        <section class="col-lg-12 connectedSortable">
-          <div class="box box-success">
-            <div class="box-header ui-sortable-handle" style="cursor: move;">
-            </div>
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; min-height: 250px;"><div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; min-height: 250px;">
+      
+      <section class="content">
+        @include('partials.notification')
+        <div class="row">
+          
+          <section class="col-lg-9 connectedSortable">
+            <div class="box box-success">
+              <div class="box-header ui-sortable-handle" style="cursor: move;">
+              </div>
+              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; min-height: 250px;"><div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; min-height: 250px;">
 
-              <form class="form-horizontal" action="{{route('article.edit.action',['id'=> $article->id])}}" method="POST">
-                  <input name="_token" type="hidden" value="{{csrf_token()}}">
-                
+                <input name="_token" type="hidden" value="{{csrf_token()}}">
+                  
                 <div class="row" style="margin:5px;">
                   <div class="col-lg-12">
                       <div class="form-group">
@@ -48,30 +49,78 @@
                        {!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
 
                       </div>
-
-                      @if($article->user_id == Auth::user()-> id)
-                      <div class="form-group">
-                        <label>Kolaborator</label>
-                        <p></p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#collaboratorModal">Edit Kolaborator</button>
-                      </div>
-                      @endif
-                    </div>
+                  </div>
                 </div>
                 <div class="row" style="margin:5px;">
                   <div class="col-lg-12">
                     <input type="hidden" name="collaborator" id="collaborator-input" value="{{$coll_json}}">
-                    <input type="submit" class="btn btn-primary pull-right" value="Perbarui">
+                    <button type="button" data-toggle="modal" data-target="#editConfModal" class="btn btn-primary pull-right">Perbarui</button>
+                  </div>
+
+                </div>
+
+              </div></div>
+          </section>
+          <section class="col-lg-3 connectedSortable">
+            <div class="box box-warning">
+              <div class="box-header ui-sortable-handle" style="cursor: move;">
+              </div>
+              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; min-height: 250px;"><div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; min-height: 250px;">
+
+                <div class="row" style="margin:5px;">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label>Kontributor</label>
+                      @if(count($article->updateLog)>0)
+                        <ul style="margin-top: 10px; padding-left: 15px;">
+                          @foreach($article->updateLog as $l)
+                            <li>{{$l->user->name}}</li>
+                          @endforeach
+                        </ul>
+                        
+                      @else
+                      <div class="text-center">
+                        <br>
+                        Belum ada member yang mengedit artikel ini
+                      </div>
+                      @endif
+                    </div>
                   </div>
                 </div>
-              </form>
+                
 
-            </div></div>
-        </section>
+              </div></div>
+          </section>
+
+        </div>
+      </section>
+      
+    </div>
+    <div id="editConfModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Konfirmasi</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <p>Perubahan pada artikel ini membutuhkan persetujuan Administrator. Apakah anda yakin akan memperbarui artikel ini?</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Ya">
+            <button type="button" class="btn btn-danger" id="submit-user-button" data-dismiss="modal">Batal</button>
+          </div>
+        </div>
+
       </div>
-    </section>
-    
-  </div>
+    </div>
+  </form>
 @endsection
 
 @section('script')
@@ -91,46 +140,4 @@
       console.log($('#collaborator-input').val());
     }
 </script>
-
-@endsection
-
-@section('modal')
-<div id="collaboratorModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Daftar Kolaborator</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          @foreach($users as $item)
-            <div class="col-md-4">
-              <div>
-                <input type="checkbox" class="user-checkbox" id="user_{{$item->id}}" onclick="user_item_clicked(this)" style="float:left;" {{$item->is_collaborator}}>
-                <div class="post user-list" style="margin:5px; float: left;">
-                  <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src="{{is_null($item->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->photo)}}" alt="user image">
-                        <span class="username">
-                          <a href="#">{{$item->name}}</a>
-                        </span>
-                    <span class="description">{{$item->username}}</span>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          @endforeach
-        </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="submit-user-button" data-dismiss="modal">Selesai</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 @endsection

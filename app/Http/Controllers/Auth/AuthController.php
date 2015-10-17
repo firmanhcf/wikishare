@@ -55,8 +55,15 @@ class AuthController extends Controller {
 
 		if(!$user){
 			return redirect()->back()->withErrors([
+						'err_msg' => 'Akun ini belum terdaftar dalam sistem Wiki Share.',
+					]);
+		}
+		else{
+			if($user->active == false){
+				return redirect()->back()->withErrors([
 						'err_msg' => 'Akun Anda diblokir oleh Admin, silahkan hubungi admin untuk mengaktifkan kembali.',
 					]);
+			}
 		}
 
 		$credentials = $request->only('username', 'password');

@@ -18,6 +18,10 @@ class Article extends Model {
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function updateLog(){
+        return $this->hasMany('App\UpdateArticleLog', 'article_id')->orderBy('updated_at', 'desc');
+    }
+
     public function scopeCategory($query, $id){
         return $query -> where('category_id', '=', $id)
                       -> where('approval_status', '=', 'accepted');
