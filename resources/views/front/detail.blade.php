@@ -24,31 +24,78 @@
 						</header>
 						{!!$article->content!!}
 						
+						
+						<br>
+						<hr>
+						<div class="comment-section">
+							<form action="{{route('article.comment.store', ['id'=>$article->id])}}" method="POST">
+								<span class="contributor-title">Komentar</span>
+								<br>
+								@if(Auth::check())
+								<textarea name="isi" class="comment-box"></textarea>
+								{!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="submit" class="button submit-comment" value="Kirim">
+								@endif
+							</form>
+						</div>
+
+						@if(count($article->comment))
+							@foreach($article->comment as $c)
+							<div class="comment-section">
+								<div class="comment-item">
+									<img src="{{is_null($c->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$c->user->photo)}}">
+									<span class="user-info">
+										<ul>
+											<li><b>{{$c->user->name}}</b></li>
+											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}</li>
+										</ul>
+									</span>
+								</div>
+								<div class="row">
+									<p>{{$c->comment}}</p>
+								</div>
+							</div>
+							
+							@endforeach
+						@else
+							<div class="comment-section">
+								<div class="row">
+									<p><b>Tidak ada komentar</b></p>
+								</div>
+							</div>
+						@endif
+
+						
+						
+
 						@if(count($article->updateLog)>0)
-							<hr>
-							<span class="contributor-title">Riwayat Editorial</span>
-							<br>
-							<div class="row contributor-list">
-								@foreach($article->updateLog as $index => $l)
-								<div class="u3 contributor-item"> 
-									<ul class="edit-item">
-										<li class="edit-member">{{$l->user->name}}</li> 
-										<li class="edit-date">
-											<i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($l->updated_at))}}
-										</li> 
-										<li class="edit-status">{{($article->user->id==$l->user->id)?'Author':'Kontributor'}}</li> 
-									</ul>
-								</div>
-								@endforeach
-								<div class="u3 contributor-item"> 
-									<ul class="edit-item">
-										<li class="edit-member">{{$article->user->name}}</li> 
-										<li class="edit-date">
-											<i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($article->created_at))}}
-										</li> 
-										<li class="edit-status">Author</li> 
-									</ul>
-								</div>
+							<div>
+								<hr>
+								<span class="contributor-title">Riwayat Editorial</span>
+								<br>
+								<ul class="contributor-list">
+									@foreach($article->updateLog as $index => $l)
+									<li class="u3 contributor-item"> 
+										<ul class="edit-item">
+											<li class="list-style"><i class="fa fa-circle-o"></i></li>
+											<li class="edit-member">{{$l->user->name}}</li> 
+											<li class="edit-date">
+												<i class="fa fa-calendar"></i> {{date('d/m/Y H:i', strtotime($l->updated_at))}}
+											</li>
+										</ul>
+									</li>
+									@endforeach
+									<li class="u3 contributor-item"> 
+										<ul class="edit-item">
+											<li class="list-style"><i class="fa fa-circle-o"></i></li>
+											<li class="edit-member">{{$article->user->name}}</li> 
+											<li class="edit-date">
+												<i class="fa fa-calendar"></i> {{date('d/m/Y H:i', strtotime($article->created_at))}}
+											</li> 
+										</ul>
+									</li>
+								</ul>
 							</div>
 							
 						@endif

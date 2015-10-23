@@ -31,4 +31,8 @@ class Article extends Model {
         return $query -> where('title', 'like', '%'.$q.'%')
         			  -> orWhere('content', 'like', '%'.$q.'%');
     }
+
+    public function comment(){
+        return $this->hasMany('App\ArticleComment', 'article_id')->orderBy('updated_at', 'desc');
+    }
 }

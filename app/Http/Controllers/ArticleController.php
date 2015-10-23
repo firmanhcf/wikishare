@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\ArticleComment;
 use App\ArticleCollaborator;
 use App\UpdateArticleLog;
 
@@ -177,6 +178,27 @@ class ArticleController extends Controller {
 			->back()
 			->with('success', 'Artikel berhasil dihapus');
 		
+	}
+
+	public function addComment(Request $request, $article_id){
+		$this->validate($request, 
+			['isi' => 'required'], 
+			['required' => 'Silahkan masukkan :attribute komentar Anda']);
+
+		$article = new ArticleComment();
+		$article -> article_id = $article_id;
+		$article -> user_id = \Auth::user()->id;
+		$article -> comment = $request->isi;
+		$article -> rating = 0;
+
+		if($article->save()){
+			return redirect()->back();
+		}
+	}
+
+	public function deleteComment($id){
+		$article = ArticleComment::destroy($id);
+		return redirect()->back();
 	}
 
 }

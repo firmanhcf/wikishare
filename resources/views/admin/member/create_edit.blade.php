@@ -81,6 +81,39 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Komentar</h3>
+              @if(count($article->comment))
+                @foreach($article->comment as $c)
+                <div class="comment-section">
+                  <div class="comment-item">
+                    <img src="{{is_null($c->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$c->user->photo)}}">
+                    <span class="user-info">
+                      <ul>
+                        <li><b>{{$c->user->name}}</b></li>
+                        <li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}</li>
+                      </ul>
+                    </span>
+                  </div>
+                  <div class="row">
+                    <p>{{$c->comment}}</p>
+                  </div>
+                </div>
+                @endforeach
+              @else
+                <div class="comment-section">
+                  <div class="row">
+                    <p><b>Tidak ada komentar</b></p>
+                  </div>
+                </div>
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     
   </div>

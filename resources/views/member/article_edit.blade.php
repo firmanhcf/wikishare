@@ -93,6 +93,50 @@
           </section>
 
         </div>
+        <div class="row">
+          <div class="col-md-9">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Komentar</h3>
+                @if(count($article->comment))
+                  @foreach($article->comment as $i => $c)
+                  <div class="comment-section">
+                    <div class="comment-item">
+                      <img src="{{is_null($c->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$c->user->photo)}}">
+                      <span class="user-info">
+                        <ul>
+                          <li><b>{{$c->user->name}}</b></li>
+                          <li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}</li>
+                        </ul>
+                      </span>
+                      
+                    </div>
+                    @if(Auth::user()->admin==1)
+                    <span class="pull-right btn-del">
+                      <button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('article.comment.delete', ['id' => $c->id])}}', 'Apakah Anda yakin akan menghapus komentar dari artikel ini?')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>
+                      </button>
+                    </span>
+                    @endif
+                    <div>
+                      <p>{{$c->comment}}</p>
+                    </div>
+                    @if($i < count($article->comment)-1)
+                    <hr>
+                    @endif
+                  </div>
+
+                  @endforeach
+                @else
+                  <div class="comment-section">
+                    <div class="no-comment">
+                      <p><b>Tidak ada komentar</b></p>
+                    </div>
+                  </div>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       
     </div>

@@ -17,3 +17,62 @@
 .form-control.has-error{
 	border: solid 1px #ffa0a0;
 }
+
+.comment-section{
+	display: inline-block;
+	width: 100%;
+	margin-bottom: -20px;
+}
+
+	.comment-section textarea.comment-box{
+		min-width: 100%;
+		max-width: 100%;
+		min-height: 100pt;
+		max-height: 200pt;
+		word-wrap: break-word;
+		margin-top: 10px;
+		padding: 3px 6px;
+	}
+
+	.submit-comment{
+		border: none;
+		float: right;
+	}
+
+	.comment-section .comment-item{
+		display: inline-flex;
+		margin-top: 20px;
+	}
+
+	.comment-section .comment-item img{
+		height: 50px;
+		width: 50px;
+		border-radius: 50%;
+		border: solid 1px #ddd;
+	}
+
+	.comment-section .comment-item b{
+		color: #555;
+	}
+
+	.comment-section .comment-item li{
+		color: #888;
+	}
+
+	.comment-section .comment-item ul{
+		list-style: none;
+  		padding-left: 0;
+	}
+
+	.comment-section .comment-item .user-info{
+		padding-left: 10px;
+	}
+
+	.comment-section .no-comment{
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	.comment-section .btn-del{
+		margin-top: 20px;
+	}
