@@ -41,6 +41,20 @@
 					</section>
 					<section class="sidebar">
 						<header>
+							<h2>Artikel Populer </h2>
+						</header>
+						<ul class="style1">
+							@foreach($particles as $c)
+							<li><a href="{{route('detail',['id'=>$c->id, 'slug'=>$c->slug])}}">{{$c->title}}</a></li>
+							@endforeach
+						</ul>
+					</section>
+				</div>
+				<div class="3u">
+					<section class="sidebar">
+					</section>
+					<section class="sidebar">
+						<header>
 							<h2>Kategori </h2>
 						</header>
 						<ul class="style1">

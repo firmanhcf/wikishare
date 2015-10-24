@@ -42,7 +42,10 @@ class HomeController extends Controller {
 		$articles = Article::where('approval_status', '=', 'accepted')
 						   ->orderBy('created_at', 'desc')
 						   ->paginate(3);
-		return view('front.home', compact('categories', 'articles'));
+
+		$particles = \DB::select('select c.article_id as id, a.slug as slug, a.title as title, a.content as content,count(c.article_id) as comments, u.name as name, u.photo as photo, a.created_at as created_at  from article_comments as c, articles as a, users as u where c.article_id = a.id and u.id = a.user_id group by article_id order by comments desc limit 5');
+		
+		return view('front.home', compact('categories', 'articles', 'particles'));
 	}
 
 	public function article()
