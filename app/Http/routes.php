@@ -24,6 +24,7 @@ Route::controllers([
 
 Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], function(){
 
+	Route::get('member/dashboard', 				['as' => 'member.dashboard', 'uses' => 'MemberController@getDashboard']);
 	Route::get('artikel', 					['as' => 'profile', 'uses' => 'MemberController@index']);
 	Route::post('artikel', 					['as' => 'article.store', 'uses' => 'ArticleController@store']);
 	Route::get('artikel/{id}/edit/view', 	['as' => 'article.edit', 'uses' => 'ArticleController@edit']);

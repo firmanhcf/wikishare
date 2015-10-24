@@ -1117,6 +1117,10 @@ span.contributor-title {
 	width: 100%;
 }
 
+	.comment-section b{
+		font-weight: normal;
+	}
+
 	.comment-section textarea.comment-box{
 		min-width: 100%;
 		max-width: 100%;

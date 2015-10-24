@@ -71,7 +71,7 @@ class AuthController extends Controller {
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
 			if(\Auth::user()->admin==0){
-				return redirect()->route('profile');
+				return redirect()->route('member.dashboard');
 			}
 			else {
 				return redirect()->route('admin.dashboard');
