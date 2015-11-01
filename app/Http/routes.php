@@ -52,7 +52,7 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('article/category/{id}/edit', 		['as' => 'admin.article.category.edit', 'uses' => 'AdminArticleController@updateCategory']);
 	Route::post('article/{id}/accept', 				['as' => 'admin.article.accept', 'uses' => 'AdminArticleController@acceptArticle']);
 	Route::post('article/{id}/reject', 				['as' => 'admin.article.reject', 'uses' => 'AdminArticleController@rejectArticle']);
-	
+
 	Route::post('article/{id}/comment', 			['as' => 'article.comment.store', 'uses' => 'ArticleController@addComment']);
 	Route::post('comment/{id}/delete', 				['as' => 'article.comment.delete', 'uses' => 'ArticleController@deleteComment']);
 	

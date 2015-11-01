@@ -20,13 +20,15 @@
           <div class="nav-tabs-custom">
             
             <ul class="nav nav-tabs pull-right">
+              @if(Auth::user()->admin!=1)
               <li><a href="#revenue-chart" data-toggle="tab"><i class="fa fa-pencil"></i> Tulis Artikel</a></li>
               <li><a href="#collaborator-chart" data-toggle="tab">Artikel Saya</a></li>
+              @endif
               <li class="active"><a href="#sales-chart" data-toggle="tab">Semua Artikel</a></li>
               <li class="pull-left header"><i class="fa fa-file-text"></i> Manajemen Artikel</li>
             </ul>
             <div class="tab-content">
-              
+              @if(Auth::user()->admin!=1)
               <div class="tab-pane" id="revenue-chart" style="position: relative; min-height: 200px;">
                 <form class="form-horizontal" action="{{route('article.store')}}" method="POST">
                   <input name="_token" type="hidden" value="{{csrf_token()}}">
@@ -127,7 +129,7 @@
                   
                 @endif
               </div>
-
+              @endif
               <div class="tab-pane active" id="sales-chart" style="position: relative; min-height: 200px; width: 100%; overflow: hidden;">
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -143,6 +145,7 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @if(Auth::user()->admin!=3)
                     @foreach($allArticles as $i => $u)
                     <tr>
                       <td>{{($i+1)}}</td>
@@ -185,7 +188,7 @@
                       <td>
                         
                         <ul class="list-inline"> 
-                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
                           </li>
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
                           
@@ -193,6 +196,61 @@
                       </td>
                     </tr>
                     @endforeach
+                    @else
+                    @foreach($allArticles as $i => $u)
+                    @if($u->user->division_id == Auth::user()->division_id)
+                    <tr>
+                      <td>{{($i+1)}}</td>
+                      <td>{{$u->title}}</td>
+                      <td>{{$u->user->name}}</td>
+                      <td>
+                        @if($u->approval_status == 'pending')
+                          Menunggu Persetujuan
+                        @elseif($u->approval_status == 'accepted')
+                          Di-<i>publish</i>
+                        @else
+                          Ditolak
+                        @endif
+                      </td>
+                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
+                      <td>
+
+                        <ul class="list-inline"> 
+                          @if($u->approval_status == 'pending')
+                              <li class="pull-right">
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
+                                
+                              </li>
+                              <li class="pull-right">
+                                <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                              </li>
+                          @elseif($u->approval_status == 'accepted')
+                              <li class="pull-right">
+                                <span data-toggle="tooltip" title="Tolak Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.reject', ['id' => $u->id])}}', 'Apakah Anda yakin akan menolak artikel ini?')" class="btn btn-sm btn-danger " class="link-black text-sm"><i class="fa fa-times"></i></button></span>
+                              </li>
+                          @else
+                            <li class="pull-right">
+                              <span data-toggle="tooltip" title="Publish Artikel"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.article.accept', ['id' => $u->id])}}', 'Apakah Anda yakin akan mempublikasikan artikel ini?')" class="btn btn-sm btn-success " class="link-black text-sm"><i class="fa fa-check"></i></button></span>
+                            </li>
+                          @endif
+                          
+                          
+                        </ul>
+                      </td>
+                      <td>
+                        
+                        <ul class="list-inline"> 
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
+                          </li>
+                          <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
+                          
+                        </ul>
+                      </td>
+                    </tr>
+                    @endif
+                    @endforeach
+
+                    @endif
                   </tbody>
                 </table>
               </div>

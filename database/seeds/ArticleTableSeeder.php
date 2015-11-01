@@ -7,7 +7,7 @@ class ArticleTableSeeder extends Seeder {
 	public function run()
 	{
 		\App\Article::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'category_id' => 1,
 			'title' => 'Lorem Ipsum Dolor Sit Amet',
 			'slug' => 'lorem-ipsum-dolor-sit-amet',
@@ -17,7 +17,7 @@ class ArticleTableSeeder extends Seeder {
 		]);
 		
 		\App\Article::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'category_id' => 1,
 			'title' => 'Amet Dolor Sit Lorem',
 			'slug' => 'amet-dolor-sit-lorem',
@@ -27,7 +27,7 @@ class ArticleTableSeeder extends Seeder {
 		]);
 
 		\App\Article::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'category_id' => 1,
 			'title' => 'Dolor Sit Lorem',
 			'slug' => 'dolor-sit-lorem',
@@ -37,7 +37,7 @@ class ArticleTableSeeder extends Seeder {
 		]);
 
 		\App\Article::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'category_id' => 1,
 			'title' => 'Amet Dolor Lorem',
 			'slug' => 'amet-dolor-lorem',
@@ -47,7 +47,7 @@ class ArticleTableSeeder extends Seeder {
 		]);
 
 		\App\Article::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'category_id' => 1,
 			'title' => 'Sit Lorem Ipsum Lorem',
 			'slug' => 'sit-lorem-ipsum-lorem',
@@ -262,56 +262,56 @@ class ArticleTableSeeder extends Seeder {
 		\App\ArticleComment::create([
 			'user_id' => 5,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 4,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 2,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 5,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 4,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 3,
 			'article_id' => 5,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
@@ -319,84 +319,84 @@ class ArticleTableSeeder extends Seeder {
 		\App\ArticleComment::create([
 			'user_id' => 5,
 			'article_id' => 5,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'article_id' => 5,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 4,
 			'article_id' => 4,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 2,
 			'article_id' => 4,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 5,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 4,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 2,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 5,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
-			'user_id' => 1,
+			'user_id' => 8,
 			'article_id' => 1,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 4,
 			'article_id' => 2,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 
 		\App\ArticleComment::create([
 			'user_id' => 2,
 			'article_id' => 3,
-			'rating' => 0,
+			
 			'comment' => 'Proin sapien odio, posuere non elementum et, commodo et nisl. Nulla facilisi. Proin vitae sagittis arcu. Nullam euismod magna non tempor tincidunt. In vitae quam id enim ornare ultrices. Fusce tristique ultricies tortor, at elementum magna condimentum nec. Integer lectus velit, fermentum quis urna eu, rhoncus tristique lectus.'
 		]);
 	}

@@ -24,7 +24,7 @@
           <i class="fa fa-file-text"></i> <span>Artikel</span>
         </a>
       </li>
-      @else
+      @elseif(Auth::user()->admin==2 || Auth::user()->admin==1)
       <li class="{{(Route::currentRouteName() == 'admin.dashboard')?'active':''}}">
         <a href="{{route('admin.dashboard')}}">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -33,6 +33,17 @@
       <li class="{{(Route::currentRouteName() == 'admin.member')?'active':''}}">
         <a href="{{route('admin.member')}}">
           <i class="fa fa-user"></i> <span>Member</span>
+        </a>
+      </li>
+      <li class="{{(Route::currentRouteName() == 'admin.article')?'active':''}}">
+        <a href="{{route('admin.article')}}">
+          <i class="fa fa-file-text"></i> <span>Artikel</span>
+        </a>
+      </li>
+      @elseif(Auth::user()->admin==3)
+      <li class="{{(Route::currentRouteName() == 'admin.dashboard')?'active':''}}">
+        <a href="{{route('admin.dashboard')}}">
+          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
       <li class="{{(Route::currentRouteName() == 'admin.article')?'active':''}}">

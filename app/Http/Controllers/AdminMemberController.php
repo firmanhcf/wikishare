@@ -20,8 +20,9 @@ class AdminMemberController extends Controller {
 	 */
 	public function index()
 	{
-		$members = \App\User::where('admin','=', 0)->get();
-		return view('admin.member.index', compact('members'));
+		$members = \App\User::where('admin','=', 0)->orWhere('admin','=', 2)->orWhere('admin','=', 3)->get();
+		$divisions = \App\Division::get();
+		return view('admin.member.index', compact('members', 'divisions'));
 	}
 
 	/**
@@ -51,6 +52,8 @@ class AdminMemberController extends Controller {
 		$newUser -> email = $request -> alamat_email;
 		$newUser -> password = bcrypt($newPwd);
 		$newUser -> confirmation_code = md5(microtime() . env('APP_KEY'));
+		$newUser -> admin = $request -> admin;
+		$newUser -> division_id = $request -> division_id;
 
 		if($newUser -> save()){
 			//Send Email
@@ -119,7 +122,8 @@ class AdminMemberController extends Controller {
 	public function edit($id)
 	{
 		$user = User::findOrFail($id);
-		return view('admin.member.create_edit', compact('user'));
+		$divisions = \App\Division::get();
+		return view('admin.member.create_edit', compact('user', 'divisions'));
 	}
 
 	/**
@@ -141,6 +145,8 @@ class AdminMemberController extends Controller {
 		$user = User::findOrFail($id);
 		$user->name = $request->name;
 		$user->email = $request->email;
+		$user->admin = $request->admin;
+		$user->division_id = $request->division_id;
 
 		$picture = $user->photo;
 

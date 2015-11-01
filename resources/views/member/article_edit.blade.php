@@ -111,7 +111,7 @@
                       </span>
                       
                     </div>
-                    @if(Auth::user()->admin==1)
+                    @if(Auth::user()->admin==2)
                     <span class="pull-right btn-del">
                       <button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('article.comment.delete', ['id' => $c->id])}}', 'Apakah Anda yakin akan menghapus komentar dari artikel ini?')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>
                       </button>

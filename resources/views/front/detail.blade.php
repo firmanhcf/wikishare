@@ -32,10 +32,12 @@
 								<span class="contributor-title">Komentar</span>
 								<br>
 								@if(Auth::check())
+								@if(Auth::user()->admin != 1)
 								<textarea name="isi" class="comment-box"></textarea>
 								{!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="submit" class="button submit-comment" value="Kirim">
+								@endif
 								@endif
 							</form>
 						</div>
@@ -65,9 +67,6 @@
 								</div>
 							</div>
 						@endif
-
-						
-						
 
 						@if(count($article->updateLog)>0)
 							<div>

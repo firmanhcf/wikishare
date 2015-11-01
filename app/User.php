@@ -31,4 +31,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function division(){
+		return $this->belongsTo('App\Division', 'division_id');
+	}
+
 }

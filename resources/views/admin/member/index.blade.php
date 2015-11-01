@@ -31,22 +31,46 @@
                 <form class="form-horizontal" action="{{route('admin.member.add')}}" method="POST">
                   <input name="_token" type="hidden" value="{{csrf_token()}}">
                   <div class="row" style="margin:5px;">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label>Alamat Email*</label>
-                        <input name="alamat_email" type="text" type="email" class="form-control {{ $errors->has('alamat_email')?'has-error':''}}" placeholder="Masukkan alamat email member">
-                        {!! $errors->first('alamat_email', '<label class="control-label has-error">:message</label>') !!}
+                    <div class="col-lg-6">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Alamat Email*</label>
+                          <input name="alamat_email" type="text" type="email" class="form-control {{ $errors->has('alamat_email')?'has-error':''}}" placeholder="Masukkan alamat email member">
+                          {!! $errors->first('alamat_email', '<label class="control-label has-error">:message</label>') !!}
+                        </div>
+                        <div class="form-group">
+                          <label>Username*</label>
+                          <input name="username" type="text" class="form-control {{ $errors->has('username')?'has-error':''}}" placeholder="Masukkan username member">
+                          {!! $errors->first('username', '<label class="control-label has-error">:message</label>') !!}
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input name="nama" type="text" class="form-control" placeholder="Masukkan nama member">
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <label>Username*</label>
-                        <input name="username" type="text" class="form-control {{ $errors->has('username')?'has-error':''}}" placeholder="Masukkan username member">
-                        {!! $errors->first('username', '<label class="control-label has-error">:message</label>') !!}
+                      
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Pilih Divisi</label>
+                          <select class="form-control" name="division_id">
+                              @foreach ($divisions as $item)
+                                  <option value="{{$item->id}}">{{$item->name}}</option>
+                              @endforeach
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Pilih Role</label>
+                          <select class="form-control" name="admin">
+                            <option value="0">Staff</option>
+                            <option value="3">Asisten Manajer</option>
+                            <option value="2">Manajer</option>
+                          </select>
+                        </div>
                       </div>
-                      <div class="form-group">
-                          <label>Nama Lengkap</label>
-                          <input name="nama" type="text" class="form-control" placeholder="Masukkan nama member">
-                          
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="row" style="margin:5px;">
@@ -92,6 +116,8 @@
                       <th>Nama</th>
                       <th>Username</th>
                       <th>Email</th>
+                      <th>Divisi</th>
+                      <th>Role</th>
                       <th>Status</th>
                       <th>Dibuat Tanggal</th>
                       <th>Aksi</th>
@@ -104,6 +130,18 @@
                       <td>{{$u->name}}</td>
                       <td>{{$u->username}}</td>
                       <td>{{$u->email}}</td>
+                      <td>{{$u->division->name}}</td>
+                      <td>
+                        @if($u->admin==0)
+                          Staf
+                        @elseif($u->admin==1)
+                          Administrator
+                        @elseif($u->admin==2)
+                          Manajer
+                        @else
+                          Asisten Manajer
+                        @endif
+                      </td>
                       <td>{{($u->active==true)?'Aktif':'Terblokir'}}</td>
                       <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>

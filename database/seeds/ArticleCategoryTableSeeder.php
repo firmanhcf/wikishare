@@ -36,6 +36,26 @@ class ArticleCategoryTableSeeder extends Seeder {
 			'name' => 'Umum',
 			'slug' => 'umum'
 		]);
+
+		\App\Division::create([
+			'name' => 'Lainnya'
+		]);
+
+		\App\Division::create([
+			'name' => 'Manajemen'
+		]);
+
+		\App\Division::create([
+			'name' => 'IT'
+		]);
+
+		\App\Division::create([
+			'name' => 'R&D'
+		]);
+
+		\App\Division::create([
+			'name' => 'Produksi'
+		]);
 	}
 
 }
