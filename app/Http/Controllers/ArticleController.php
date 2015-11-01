@@ -189,7 +189,6 @@ class ArticleController extends Controller {
 		$article -> article_id = $article_id;
 		$article -> user_id = \Auth::user()->id;
 		$article -> comment = $request->isi;
-		$article -> rating = 0;
 
 		if($article->save()){
 			return redirect()->back();
