@@ -13,4 +13,9 @@ class Division extends Model {
 	 */
 	protected $fillable = ['name'];
 
+	public function user()
+    {
+        return $this->hasMany('App\User', 'division_id');
+    }
+
 }

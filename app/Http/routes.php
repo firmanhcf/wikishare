@@ -53,6 +53,12 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('article/{id}/accept', 				['as' => 'admin.article.accept', 'uses' => 'AdminArticleController@acceptArticle']);
 	Route::post('article/{id}/reject', 				['as' => 'admin.article.reject', 'uses' => 'AdminArticleController@rejectArticle']);
 
+	Route::get('divisi', 							['as' => 'admin.division', 'uses' => 'AdminDivisiController@index']);
+	Route::post('divisi/add', 						['as' => 'admin.division.add', 'uses' => 'AdminDivisiController@store']);
+	Route::get('divisi/{id}/remove', 				['as' => 'admin.division.remove', 'uses' => 'AdminDivisiController@destroy']);
+	Route::post('divisi/{id}/edit', 				['as' => 'admin.division.edit', 'uses' => 'AdminDivisiController@update']);
+	
+
 	Route::post('article/{id}/comment', 			['as' => 'article.comment.store', 'uses' => 'ArticleController@addComment']);
 	Route::post('comment/{id}/delete', 				['as' => 'article.comment.delete', 'uses' => 'ArticleController@deleteComment']);
 	

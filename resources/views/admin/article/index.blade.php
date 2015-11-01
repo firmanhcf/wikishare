@@ -35,7 +35,7 @@
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label>Judul Artikel</label>
+                      <label>Judul Artikel</label>
                        <input name="judul" type="text" class="form-control {{ $errors->has('judul')?'has-error':''}}" placeholder="Masukkan judul Artikel Anda">
                        {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
 

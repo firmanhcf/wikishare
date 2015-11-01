@@ -52,6 +52,13 @@
         </a>
       </li>
       @endif
+      @if(Auth::user()->admin==1)
+        <li class="{{(Route::currentRouteName() == 'admin.division')?'active':''}}">
+          <a href="{{route('admin.division')}}">
+            <i class="fa fa-puzzle-piece"></i> <span>Divisi</span>
+          </a>
+        </li>
+      @endif
       <li class="{{(Route::currentRouteName() == 'member.settings.view')?'active':''}}">
         <a href="{{route('member.settings.view')}}">
           <i class="fa fa-gear"></i> <span>Pengaturan</span>
