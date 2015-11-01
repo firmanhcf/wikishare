@@ -85,9 +85,12 @@
                     @endforeach
                     @else
                     @foreach($allArticles as $i => $u)
+                    <?php 
+                      $ind = 1;
+                    ?>
                     @if($u->user->division_id == Auth::user()->division_id)
                     <tr>
-                      <td>{{($i+1)}}</td>
+                      <td>{{($ind++)}}</td>
                       <td>{{$u->title}}</td>
                       <td>{{$u->user->name}}</td>
                       <td>

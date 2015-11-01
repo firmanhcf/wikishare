@@ -15,7 +15,7 @@
       @include('partials.notification')
       <div class="row">
         
-        <section class="col-lg-8 connectedSortable">
+        <section class="{{(Auth::user()->admin==3)?'col-lg-12':'col-lg-8'}} connectedSortable">
           
           <div class="nav-tabs-custom">
             
@@ -197,10 +197,13 @@
                     </tr>
                     @endforeach
                     @else
+                    <?php 
+                      $ind=1;
+                    ?>
                     @foreach($allArticles as $i => $u)
                     @if($u->user->division_id == Auth::user()->division_id)
                     <tr>
-                      <td>{{($i+1)}}</td>
+                      <td>{{($ind++)}}</td>
                       <td>{{$u->title}}</td>
                       <td>{{$u->user->name}}</td>
                       <td>
@@ -259,6 +262,7 @@
 
         </section>
 
+        @if(Auth::user()->admin!=3)
         <section class="col-lg-4 connectedSortable">
           <div class="box box-warning">
             <div class="box-header with-border">
@@ -357,6 +361,7 @@
             </div>
           </div>
         </section>
+        @endif
       </div>
     </section>
   </div>
