@@ -15,9 +15,10 @@
 								@if(count($article->updateLog)>0)
 								Terakhir diedit oleh <b style="color:#aaa;">{{$article->updateLog[0]->user->name}}</b>
 								@endif
+								<a href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-o"></i>&nbsp;Simpan PDF</a>
 								@if(Auth::check())
 								&nbsp;|&nbsp;
-								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;Edit Artikel</a>
+								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;|&nbsp;Edit Artikel</a>
 								@endif
 							</span>
 							</span>

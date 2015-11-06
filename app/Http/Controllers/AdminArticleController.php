@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ArticleCategory;
 use App\Article;
+use App\ArticleRating;
+use App\ArticleCommentRating;
 
 class AdminArticleController extends Controller {
 
@@ -150,6 +152,62 @@ class AdminArticleController extends Controller {
 		return redirect()
 			->back()
 			->with('success', 'Kategori Artikel berhasil dihapus');
+	}
+
+	public function rateArticle(Request $request, $id){
+		$ar = ArticleRating::where('article_id', '=', $id)
+						   ->where('rater_id', '=', \Auth::user()->id)
+						   ->first();
+
+		if($ar){
+			$ar -> rating = $request -> rating;
+			
+			if($ar -> save()){
+				return redirect()
+				->back()
+				->with('success', 'Rating Anda telah diperbarui');
+			}
+		}
+
+		$newAr = new ArticleRating();
+		$newAr -> article_id = $id;
+		$newAr -> rater_id = \Auth::user()->id;
+		$newAr -> rating = $request -> rating;
+		
+		if($newAr -> save()){
+			return redirect()
+			->back()
+			->with('success', 'Rating untuk artikel telah terkirim');
+		}
+
+	}
+
+
+	public function rateComment(Request $request, $id){
+		$ar = ArticleCommentRating::where('comment_id', '=', $id)
+						   ->where('rater_id', '=', \Auth::user()->id)
+						   ->first();
+
+		if($ar){
+			$ar -> rating = $request -> rating;
+			
+			if($ar -> save()){
+				return redirect()
+				->back()
+				->with('success', 'Rating Anda telah diperbarui');
+			}
+		}
+
+		$newAr = new ArticleCommentRating();
+		$newAr -> comment_id = $id;
+		$newAr -> rater_id = \Auth::user()->id;
+		$newAr -> rating = $request -> rating;
+		
+		if($newAr -> save()){
+			return redirect()
+			->back()
+			->with('success', 'Rating untuk komentar telah terkirim');
+		}
 	}
 
 }

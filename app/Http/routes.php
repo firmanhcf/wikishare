@@ -15,6 +15,7 @@ Route::get('/', 					['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/home', 				['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('kategori-artikel', 		['as' => 'article', 'uses' => 'HomeController@article']);
 Route::get('artikel/{id}/{slug}', 	['as' => 'detail', 'uses' => 'HomeController@detail']);
+Route::get('artikelpdf/{id}', 		['as' => 'article.pdf', 'uses' => 'HomeController@articlePDF']);
 Route::get('pencarian', 			['as' => 'search', 'uses' => 'HomeController@search']);
 
 Route::controllers([
@@ -52,6 +53,7 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('article/category/{id}/edit', 		['as' => 'admin.article.category.edit', 'uses' => 'AdminArticleController@updateCategory']);
 	Route::post('article/{id}/accept', 				['as' => 'admin.article.accept', 'uses' => 'AdminArticleController@acceptArticle']);
 	Route::post('article/{id}/reject', 				['as' => 'admin.article.reject', 'uses' => 'AdminArticleController@rejectArticle']);
+	Route::post('article/{id}/rate', 				['as' => 'admin.article.rate', 'uses' => 'AdminArticleController@rateArticle']);
 
 	Route::get('divisi', 							['as' => 'admin.division', 'uses' => 'AdminDivisiController@index']);
 	Route::post('divisi/add', 						['as' => 'admin.division.add', 'uses' => 'AdminDivisiController@store']);
@@ -61,5 +63,6 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 
 	Route::post('article/{id}/comment', 			['as' => 'article.comment.store', 'uses' => 'ArticleController@addComment']);
 	Route::post('comment/{id}/delete', 				['as' => 'article.comment.delete', 'uses' => 'ArticleController@deleteComment']);
+	Route::post('comment/{id}/rate', 				['as' => 'article.comment.rate', 'uses' => 'AdminArticleController@rateComment']);
 	
 });

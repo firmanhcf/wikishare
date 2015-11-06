@@ -92,4 +92,11 @@ class HomeController extends Controller {
 		return view('front.search', compact('articles','categories'));
 	}
 
+	public function articlePDF($id){
+		$article = Article::findOrFail($id);
+		$pdf         = \App::make('dompdf.wrapper');
+        $pdf->loadView('front.pdf', compact('article'))->setPaper('legal')->setOrientation('potrait');
+        return $pdf->stream($article->slug.'.pdf');
+	}
+
 }
