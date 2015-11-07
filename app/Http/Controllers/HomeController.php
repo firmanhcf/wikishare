@@ -44,8 +44,9 @@ class HomeController extends Controller {
 						   ->paginate(3);
 
 		$particles = \DB::select('select c.article_id as id, a.slug as slug, a.title as title, a.content as content,count(c.article_id) as comments, u.name as name, u.photo as photo, a.created_at as created_at  from article_comments as c, articles as a, users as u where c.article_id = a.id and u.id = a.user_id group by article_id order by comments desc limit 5');
-		
-		return view('front.home', compact('categories', 'articles', 'particles'));
+		$users = \DB::select('select count(a.id) as articles, u.name as name, u.photo as photo from articles as a, users as u where a.user_id = u.id and a.approval_status = "accepted" group by a.user_id order by articles desc limit 5');
+
+		return view('front.home', compact('categories', 'articles', 'particles', 'users'));
 	}
 
 	public function article()
@@ -55,7 +56,11 @@ class HomeController extends Controller {
 						   ->orderBy('created_at', 'desc')
 						   ->take(5)
 						   ->get();
-		return view('front.article', compact('categories','articles'));
+
+		$particles = \DB::select('select c.article_id as id, a.slug as slug, a.title as title, a.content as content,count(c.article_id) as comments, u.name as name, u.photo as photo, a.created_at as created_at  from article_comments as c, articles as a, users as u where c.article_id = a.id and u.id = a.user_id group by article_id order by comments desc limit 5');
+		$users = \DB::select('select count(a.id) as articles, u.name as name, u.photo as photo from articles as a, users as u where a.user_id = u.id and a.approval_status = "accepted" group by a.user_id order by articles desc limit 5');
+
+		return view('front.article', compact('categories','articles', 'particles', 'users'));
 	}
 
 	public function detail($id, $slug)
@@ -71,7 +76,10 @@ class HomeController extends Controller {
 						   ->take(5)
 						   ->get();
 		
-		return view('front.detail', compact('article', 'categories', 'related'));
+		$particles = \DB::select('select c.article_id as id, a.slug as slug, a.title as title, a.content as content,count(c.article_id) as comments, u.name as name, u.photo as photo, a.created_at as created_at  from article_comments as c, articles as a, users as u where c.article_id = a.id and u.id = a.user_id group by article_id order by comments desc limit 5');
+		$users = \DB::select('select count(a.id) as articles, u.name as name, u.photo as photo from articles as a, users as u where a.user_id = u.id and a.approval_status = "accepted" group by a.user_id order by articles desc limit 5');
+
+		return view('front.detail', compact('article', 'categories', 'related', 'particles', 'users'));
 	}
 
 	public function search(Request $request)
@@ -89,7 +97,11 @@ class HomeController extends Controller {
 		}
 
 		$articles = $queryBuilder -> paginate(3);
-		return view('front.search', compact('articles','categories'));
+
+		$particles = \DB::select('select c.article_id as id, a.slug as slug, a.title as title, a.content as content,count(c.article_id) as comments, u.name as name, u.photo as photo, a.created_at as created_at  from article_comments as c, articles as a, users as u where c.article_id = a.id and u.id = a.user_id group by article_id order by comments desc limit 5');
+		$users = \DB::select('select count(a.id) as articles, u.name as name, u.photo as photo from articles as a, users as u where a.user_id = u.id and a.approval_status = "accepted" group by a.user_id order by articles desc limit 5');
+
+		return view('front.search', compact('articles','categories', 'particles', 'users'));
 	}
 
 	public function articlePDF($id){

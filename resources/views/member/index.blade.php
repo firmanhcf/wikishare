@@ -127,8 +127,8 @@
                       {!! substr(strip_tags($item->content), 0, 850)!!}...
                     </p>
                     <ul class="list-inline"> 
-                      <li class="pull-right"><a class="btn btn-sm btn-primary " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
-                      <li class="pull-right"><button data-toggle="modal" data-target="#delArticleModal" type="button" class="btn btn-sm btn-danger" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</button>
+                      <li class="pull-right"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
+                      
                       </li>
                     </ul>
                     <br>

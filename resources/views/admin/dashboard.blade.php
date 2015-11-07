@@ -27,7 +27,8 @@
                       <th>Judul</th>
                       <th>Author</th>
                       <th>Status</th>
-                      <th>Dibuat Tanggal</th>
+                      <th>Tanggal Edit</th>
+                      <th>Di-edit Oleh</th>
                       <th>Ubah Status</th>
                       <th>Aksi</th>
                     </tr>
@@ -48,7 +49,8 @@
                           Ditolak
                         @endif
                       </td>
-                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
+                      <td>{{date_format($u->updated_at,"d/m/Y")}}</td>
+                      <td>{{count($u->updateLog)>0?$u->updateLog[0]->user->name:'-'}}</td>
                       <td>
 
                         <ul class="list-inline"> 
@@ -76,7 +78,9 @@
                       <td>
                         
                         <ul class="list-inline"> 
-                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button data-toggle="modal" data-target="#delArticleModal" type="button" class="btn btn-sm btn-default" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
+                          @if(Auth::user()->admin==1)
+                          <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button data-toggle="modal" data-target="#delArticleModal" type="button" class="btn btn-sm btn-default" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></button></span></li>
+                            @endif
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
                           
                         </ul>

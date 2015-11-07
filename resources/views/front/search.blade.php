@@ -41,6 +41,26 @@
 				<div class="3u">
 					<section class="sidebar">
 						<header>
+							<h2>Artikel Populer </h2>
+						</header>
+						<ul class="style1">
+							@foreach($particles as $c)
+							<li><a href="{{route('detail',['id'=>$c->id, 'slug'=>$c->slug])}}">{{$c->title}}</a></li>
+							@endforeach
+						</ul>
+					</section>
+					<section class="sidebar">
+						<header>
+							<h2>Member Teraktif </h2>
+						</header>
+						<ul class="style1">
+							@foreach($users as $u)
+							<li>{{$u->name}}</li>
+							@endforeach
+						</ul>
+					</section>
+					<section class="sidebar">
+						<header>
 							<h2>Kategori </h2>
 						</header>
 						<ul class="style1">

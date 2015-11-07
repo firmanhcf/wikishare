@@ -131,7 +131,9 @@
                       {!! substr(strip_tags($item->content), 0, 850)!!}...
                     </p>
                     <ul class="list-inline"> 
+                      @if(Auth::user()->admin==1)
                       <li class="pull-right"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $item->id])}}')" class="link-black text-sm"><i class="fa fa-times margin-r-5"></i> Hapus</button>
+                      @endif
                       <li class="pull-right"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $item->id])}}" class="link-black text-sm"><i class="fa fa-pencil margin-r-5"></i> Edit</a></li>
 
                       </li>
@@ -229,8 +231,10 @@
                       <td>
                         
                         <ul class="list-inline"> 
+                          @if(Auth::user()->admin==1)
                           <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('article.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
                           </li>
+                          @endif
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Artikel"><a class="btn btn-sm btn-default " href="{{route('article.edit', ['id' => $u->id])}}" class="link-black text-sm"><i class="fa fa-pencil"></i></a></span></li>
                           
                         </ul>

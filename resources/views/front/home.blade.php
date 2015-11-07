@@ -38,8 +38,6 @@
 				</div>
 				<div class="3u">
 					<section class="sidebar">
-					</section>
-					<section class="sidebar">
 						<header>
 							<h2>Artikel Populer </h2>
 						</header>
@@ -49,9 +47,15 @@
 							@endforeach
 						</ul>
 					</section>
-				</div>
-				<div class="3u">
 					<section class="sidebar">
+						<header>
+							<h2>Member Teraktif </h2>
+						</header>
+						<ul class="style1">
+							@foreach($users as $u)
+							<li>{{$u->name}}</li>
+							@endforeach
+						</ul>
 					</section>
 					<section class="sidebar">
 						<header>

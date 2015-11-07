@@ -70,7 +70,7 @@
 				                    @endif
 				                    @endif
 								</div>
-								<div style="width:2000px;height:70px;"></div>
+								<div style="width:100%;height:70px;"></div>
 								@if($c->is_deleted)
 			                      <div class="row">
 			                        <p style="color:#888;">Komentar ini telah dihapus oleh {{($c->deletedBy->admin==1)?'Admin':'Manager'}}</p>
@@ -127,6 +127,26 @@
 					</section>
 				</div>
 				<div class="3u">
+					<section class="sidebar">
+						<header>
+							<h2>Artikel Populer </h2>
+						</header>
+						<ul class="style1">
+							@foreach($particles as $c)
+							<li><a href="{{route('detail',['id'=>$c->id, 'slug'=>$c->slug])}}">{{$c->title}}</a></li>
+							@endforeach
+						</ul>
+					</section>
+					<section class="sidebar">
+						<header>
+							<h2>Member Teraktif </h2>
+						</header>
+						<ul class="style1">
+							@foreach($users as $u)
+							<li>{{$u->name}}</li>
+							@endforeach
+						</ul>
+					</section>
 					@if(count($related)>0)
 					<section class="sidebar">
 						<header>
