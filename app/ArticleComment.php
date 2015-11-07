@@ -22,10 +22,7 @@ class ArticleComment extends Model {
 	}
 
 	public function userRating(){
-        return $this->hasMany('App\ArticleCommentRating', 'comment_id')->where('rater_id', '=', \Auth::user()->id);
+        return $this->hasMany('App\ArticleCommentRating', 'comment_id');
     }
 
-    public function rating(){
-        return $this->hasMany('App\ArticleCommentRating', 'comment_id');   
-    }
 }

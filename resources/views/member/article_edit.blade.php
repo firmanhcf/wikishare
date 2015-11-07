@@ -56,8 +56,8 @@
                   <div class="col-lg-12">
                     <input type="hidden" name="collaborator" id="collaborator-input" value="{{$coll_json}}">
                     <button type="button" data-toggle="modal" data-target="#editConfModal" class="btn btn-primary pull-right">Perbarui</button>&nbsp;
-
-                    @if(Auth::user()->admin!= 0)
+                    {{count($article->userRating)}}
+                    @if(Auth::user()->admin!= 0 && count($article->userRating)==0)
                     <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('admin.article.rate', ['id' => $article->id])}}', 'Silahkan isi nilai untuk artikel ini', {{(count($article->userRating)==0)?'0':''.$article->userRating[0]->rating}})" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-star"></i>&nbsp;Berikan Rating
                     </button>
                     @endif
@@ -120,7 +120,7 @@
                     
                     <span class="pull-right btn-del">
                       
-                      @if(Auth::user()->admin!= 0)
+                      @if(Auth::user()->admin!= 0 && count($c->userRating)==0)
                       <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('article.comment.rate', ['id' => $c->id])}}', 'Silahkan isi nilai untuk komentar ini', {{(count($c->userRating)==0)?'0':''.$c->userRating[0]->rating}})" class="btn btn-xs btn-default"><i class="fa fa-star"></i>
                       </button>
                       @endif

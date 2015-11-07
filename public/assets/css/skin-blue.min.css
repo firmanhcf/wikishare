@@ -7,3 +7,18 @@
 .fa-star-o{
 	color: goldenrod;
 }
+
+.pull-left {
+  float: left!important;
+  overflow: hidden  !important;
+  width: 45px !important;
+  height: 45px !important;
+}
+
+	.pull-left .img-circle{
+		height: 100% !important;
+		min-width: 100% !important;
+		left: 50% !important;
+		position: relative !important;
+		transform: translateX(-50%) !important;
+	}

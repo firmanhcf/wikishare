@@ -37,10 +37,6 @@ class Article extends Model {
     }
 
     public function userRating(){
-        return $this->hasMany('App\ArticleRating', 'article_id')->where('rater_id', '=', \Auth::user()->id);
-    }
-
-    public function rating(){
-        return $this->hasMany('App\ArticleRating', 'article_id');   
+        return $this->hasMany('App\ArticleRating', 'article_id');
     }
 }
