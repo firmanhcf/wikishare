@@ -33,9 +33,9 @@ class MemberController extends Controller {
 	 */
 	public function index()
 	{
-		$categories = \App\ArticleCategory::get();
+		$categories = \App\ArticleCategory::orderBy('name', 'asc')->get();
 		$articles = \App\Article::where('user_id','=',\Auth::user()->id)
-								->orderBy('created_at', 'desc')
+								->orderBy('updated_at', 'desc')
 								->get();
 		$collaborators = \App\ArticleCollaborator::where('user_id','=',\Auth::user()->id)
 								->orderBy('created_at', 'desc')

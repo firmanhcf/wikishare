@@ -25,4 +25,8 @@ class ArticleComment extends Model {
         return $this->hasMany('App\ArticleCommentRating', 'comment_id');
     }
 
+    public function deletedBy(){
+		return $this->belongsTo('App\User', 'deleted_by');
+	}
+
 }

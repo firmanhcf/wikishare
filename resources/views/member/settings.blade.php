@@ -20,7 +20,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" enctype="multipart/form-data" action="{{route('member.settings.action')}}" method="POST">
+            <form role="form" enctype="multipart/form-data" id="profile-form" action="{{route('member.settings.action')}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
@@ -178,6 +178,7 @@
 
     $("#file-input").change(function(){
         readURL(this);
+        $('#profile-form').submit();
     });
   </script>
 @endsection

@@ -51,13 +51,34 @@
 									<span class="user-info">
 										<ul>
 											<li><b>{{$c->user->name}}</b></li>
-											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-comment-{{$c->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span></li>
+											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}@if(!$c->is_deleted)&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-comment-{{$c->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span>@endif</li>
 										</ul>
 									</span>
+									@if(!$c->is_deleted)
+									<span class="buttons">
+				                      @if(Auth::user()->admin!= 0 && count($c->userRating)==0)
+				                      <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('article.comment.rate', ['id' => $c->id])}}', 'Silahkan isi nilai untuk komentar ini', {{(count($c->userRating)==0)?'0':''.$c->userRating[0]->rating}})" class="btn btn-xs btn-default"><i class="fa fa-star"></i>
+				                      </button>
+				                      @endif
+				                      @if(Auth::user()->admin==2 || Auth::user()->admin==1)
+				                      <button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('article.comment.delete', ['id' => $c->id])}}', 'Apakah Anda yakin akan menghapus komentar dari artikel ini?')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>
+				                      </button>
+				                      @endif
+
+				                    </span>
+				                    @endif
 								</div>
-								<div class="row">
+								<div style="width:2000px;height:70px;"></div>
+								@if($c->is_deleted)
+			                      <div class="row">
+			                        <p style="color:#888;">Komentar ini telah dihapus oleh {{($c->deletedBy->admin==1)?'Admin':'Manager'}}</p>
+			                      </div>
+			                    @else
+			                      <div class="row">
 									<p>{{$c->comment}}</p>
-								</div>
+								  </div>
+			                    @endif
+								
 							</div>
 							
 							@endforeach
@@ -144,10 +165,10 @@
 		@endif
 
 		@foreach($article->comment as $c)
-			@if(count($c->rating)==0)
+			@if(count($c->userRating)==0)
 				$('#rating-comment-{{$c->id}}').rating('rate', '0');
 			@else
-				$('#rating-comment-{{$c->id}}').rating('rate', '{{$c->rating[0]->rating}}');
+				$('#rating-comment-{{$c->id}}').rating('rate', '{{$c->userRating[0]->rating}}');
 			@endif
 		@endforeach
 	</script>

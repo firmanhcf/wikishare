@@ -7,7 +7,16 @@
       </div>
       <div class="pull-left info">
         <p>{{Auth::user()->name}}</p>
-        <a href="{{url('auth/logout')}}">Logout</a>
+         <div> @if(Auth::user()->admin==0)
+            Staf
+          @elseif(Auth::user()->admin==1)
+            Administrator
+          @elseif(Auth::user()->admin==2)
+            Manajer
+          @else
+            Asisten Manajer
+          @endif</div>
+        <a href="{{url('auth/logout')}}"><i class="fa fa-sign-out"></i>Logout</a>
       </div>
     </div>
     

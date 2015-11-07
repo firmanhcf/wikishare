@@ -24,10 +24,10 @@ class AdminArticleController extends Controller {
 	 */
 	public function index()
 	{
-		$categories = ArticleCategory::get();
-		$allArticles = \App\Article::get();
+		$categories = ArticleCategory::orderBy('name', 'asc')->get();
+		$allArticles = \App\Article::orderBy('updated_at', 'desc')->get();
 		$myArticles = \App\Article::where('user_id','=',\Auth::user()->id)
-								->orderBy('created_at', 'desc')
+								->orderBy('updated_at', 'desc')
 								->get();
 		$collaborators = \App\ArticleCollaborator::where('user_id','=',\Auth::user()->id)
 								->orderBy('created_at', 'desc')

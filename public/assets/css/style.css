@@ -1115,6 +1115,7 @@ span.contributor-title {
 .comment-section{
 	display: inline-block;
 	width: 100%;
+	padding-top: 20px;
 }
 
 	.comment-section b{
@@ -1137,7 +1138,7 @@ span.contributor-title {
 	}
 
 	.comment-section .comment-item{
-		display: inline-flex;
+		display: inline;
 		margin-top: 20px;
 	}
 
@@ -1146,6 +1147,7 @@ span.contributor-title {
 		width: 50px;
 		border-radius: 50%;
 		border: solid 1px #ddd;
+		float: left;
 	}
 
 	.comment-section .comment-item b{
@@ -1158,6 +1160,20 @@ span.contributor-title {
 
 	.comment-section .comment-item .user-info{
 		padding-left: 10px;
+		float: left;
+	}
+
+	.comment-section .comment-item .buttons{
+		float: right;
+		padding-top: 5px;
+	}
+
+	.comment-section .comment-item .buttons button{
+		padding-top: 5px;
+	}
+
+	.comment-section .comment-item .buttons button.btn-default{
+		border: 1px solid #ddd !important;
 	}
 
 .fa-star{

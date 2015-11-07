@@ -56,7 +56,6 @@
                   <div class="col-lg-12">
                     <input type="hidden" name="collaborator" id="collaborator-input" value="{{$coll_json}}">
                     <button type="button" data-toggle="modal" data-target="#editConfModal" class="btn btn-primary pull-right">Perbarui</button>&nbsp;
-                    {{count($article->userRating)}}
                     @if(Auth::user()->admin!= 0 && count($article->userRating)==0)
                     <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('admin.article.rate', ['id' => $article->id])}}', 'Silahkan isi nilai untuk artikel ini', {{(count($article->userRating)==0)?'0':''.$article->userRating[0]->rating}})" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-star"></i>&nbsp;Berikan Rating
                     </button>
@@ -112,28 +111,35 @@
                       <span class="user-info">
                         <ul>
                           <li><b>{{$c->user->name}}</b></li>
-                          <li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}</li>
+                          <li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}@if(!$c->is_deleted)&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-comment-{{$c->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span>@endif</li>
                         </ul>
                       </span>
                       
                     </div>
-                    
+                    @if(!$c->is_deleted)
                     <span class="pull-right btn-del">
                       
                       @if(Auth::user()->admin!= 0 && count($c->userRating)==0)
                       <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('article.comment.rate', ['id' => $c->id])}}', 'Silahkan isi nilai untuk komentar ini', {{(count($c->userRating)==0)?'0':''.$c->userRating[0]->rating}})" class="btn btn-xs btn-default"><i class="fa fa-star"></i>
                       </button>
                       @endif
-                      @if(Auth::user()->admin==2)
+                      @if(Auth::user()->admin==2 || Auth::user()->admin==1)
                       <button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('article.comment.delete', ['id' => $c->id])}}', 'Apakah Anda yakin akan menghapus komentar dari artikel ini?')" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>
                       </button>
                       @endif
 
                     </span>
+                    @endif
+                    @if($c->is_deleted)
+                      <div class="deleted-comment">
+                        <p>Komentar ini telah dihapus oleh {{($c->deletedBy->admin==1)?'Admin':'Manager'}}</p>
+                      </div>
+                    @else
+                      <div>
+                        <p>{{$c->comment}}</p>
+                      </div>
+                    @endif
                     
-                    <div>
-                      <p>{{$c->comment}}</p>
-                    </div>
                     @if($i < count($article->comment)-1)
                     <hr>
                     @endif
@@ -183,6 +189,15 @@
 
 @section('script')
 <script type="text/javascript">
+
+  @foreach($article->comment as $c)
+      @if(count($c->userRating)==0)
+        $('#rating-comment-{{$c->id}}').rating('rate', '0');
+      @else
+        $('#rating-comment-{{$c->id}}').rating('rate', '{{$c->userRating[0]->rating}}');
+      @endif
+    @endforeach
+
   var userArr = JSON.parse($('#collaborator-input').val());
     console.log(userArr);
     function user_item_clicked(cb){

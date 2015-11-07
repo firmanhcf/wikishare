@@ -100,10 +100,25 @@
                       <img class="img-circle img-bordered-sm" src="{{is_null($item->user->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$item->user->photo)}}" alt="user image">
                           <span class="username">
                             <a href="{{route('article.edit', ['id' => $item->id])}}">{{$item->title}}</a>
+                            <span class="status-badge">
+                              @if($item->approval_status=='pending')
+                                Menunggu Persetujuan
+                              @elseif($item->approval_status=='accepted')
+                                Di-publish
+                              @else 
+                                Ditolak 
+                              @endif
+                              &nbsp;<i class="fa fa-circle @if($item->approval_status=='pending')
+                                  yellow
+                                @elseif($item->approval_status=='accepted')
+                                  green
+                                @else 
+                                  red
+                                @endif"></i></span>
                           </span>
                       <span class="description">Ditulis oleh <b>{{$item->user->name}}</b> pada {{$item->created_at}}
                         @if(count($item->updateLog)>0)
-                        <span style="float:right;">Terakhir diedit oleh <b>{{$item->updateLog[0]->user->name}}</b></span>
+                        <span style="float:right;">Terakhir diedit oleh <b>{{$item->updateLog[0]->user->name}}</b> pada {{$item->updateLog[0]->user->created_at}}</span>
                         @endif
                       </span>
                     </div>

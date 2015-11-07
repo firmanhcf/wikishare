@@ -8,17 +8,57 @@
 	color: goldenrod;
 }
 
-.pull-left {
+.pull-left.image {
   float: left!important;
   overflow: hidden  !important;
   width: 45px !important;
   height: 45px !important;
 }
 
-	.pull-left .img-circle{
+	.pull-left.image .img-circle{
 		height: 100% !important;
 		min-width: 100% !important;
 		left: 50% !important;
 		position: relative !important;
 		transform: translateX(-50%) !important;
 	}
+
+.main-sidebar .sidebar .user-panel{
+	height: 80px;
+}
+
+.pull-left.info div{
+	margin-top: -5px !important;
+	margin-bottom: 5px !important;
+	font-size: 13px;
+}
+
+.status-badge{
+	float: right;
+	font-size: 10pt;
+	color: #8e8e8e;
+}
+
+.status-badge .green{
+	color: #34cc55;
+}
+
+.status-badge .red{
+	color: #dd3455;
+}
+
+.status-badge .yellow{
+	color: #ddbb33;
+}
+
+.post{
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+.deleted-comment{
+	display: table-cell;
+	height: 70px;
+	vertical-align: middle;
+	color: #888;
+}

@@ -191,12 +191,20 @@ class ArticleController extends Controller {
 		$article -> comment = $request->isi;
 
 		if($article->save()){
+			$art = Article::findOrFail($article_id);
+			$art -> title = $art -> title;
+			$art -> save();
+
 			return redirect()->back();
 		}
+
 	}
 
 	public function deleteComment($id){
-		$article = ArticleComment::destroy($id);
+		$article = ArticleComment::findOrFail($id);
+		$article->is_deleted = true;
+		$article->deleted_by = \Auth::user()->id;
+		$article -> save();
 		return redirect()->back();
 	}
 
