@@ -26,7 +26,6 @@
                       <th>#</th>
                       <th>Nama Divisi</th>
                       <th>Jumlah Akun</th>
-                      <th>Dibuat Tanggal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -36,16 +35,16 @@
                       <td>{{($i+1)}}</td>
                       <td>{{$u->name}}</td>
                       <td>{{count($u->user)}}</td>
-                      
-                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>
                         
                         <ul class="list-inline"> 
-                          @if($u->id!=1)
+                          @if(count($u->user)==0)
                           <li class="pull-right"><span data-toggle="tooltip" title="Hapus Artikel"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#delArticleModal" onclick="deleteClick('{{route('admin.division.remove', ['id' => $u->id])}}')" class="link-black text-sm"><i class="fa fa-trash"></i></span></button>
                           </li>
+                          @endif
                           <li class="pull-right"><span data-toggle="tooltip" title="Edit Divisi"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#edit-category-{{$u->id}}"><i class="fa fa-pencil"></i></button></span>&nbsp;
                           </li>
+                          
                           <div id="edit-category-{{$u->id}}" class="modal fade" role="dialog">
                             <div class="modal-dialog modal-sm">
 
@@ -73,7 +72,6 @@
 
                             </div>
                           </div>
-                          @endif
                         </ul>
                       </td>
                     </tr>

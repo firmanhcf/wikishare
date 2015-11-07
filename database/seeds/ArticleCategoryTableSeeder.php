@@ -38,10 +38,6 @@ class ArticleCategoryTableSeeder extends Seeder {
 		]);
 
 		\App\Division::create([
-			'name' => 'Lainnya'
-		]);
-
-		\App\Division::create([
 			'name' => 'Manajemen'
 		]);
 

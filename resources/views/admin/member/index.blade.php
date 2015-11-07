@@ -54,12 +54,13 @@
                     <div class="col-lg-6">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label>Pilih Divisi</label>
+                          <label>Pilih Divisi</label> 
                           <select class="form-control" name="division_id">
                               @foreach ($divisions as $item)
                                   <option value="{{$item->id}}">{{$item->name}}</option>
                               @endforeach
                           </select>
+                          <p>Jika divisi tidak ada dalam daftar, silahkan <a href="{{route('admin.division')}}">tambah baru</a>.</p>
                         </div>
                         <div class="form-group">
                           <label>Pilih Role</label>
@@ -114,12 +115,9 @@
                     <tr>
                       <th>#</th>
                       <th>Nama</th>
-                      <th>Username</th>
-                      <th>Email</th>
                       <th>Divisi</th>
                       <th>Role</th>
                       <th>Status</th>
-                      <th>Dibuat Tanggal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -128,8 +126,6 @@
                     <tr>
                       <td>{{($i+1)}}</td>
                       <td>{{$u->name}}</td>
-                      <td>{{$u->username}}</td>
-                      <td>{{$u->email}}</td>
                       <td>{{$u->division->name}}</td>
                       <td>
                         @if($u->admin==0)
@@ -143,7 +139,6 @@
                         @endif
                       </td>
                       <td>{{($u->active==true)?'Aktif':'Terblokir'}}</td>
-                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>
                         <div class="form-group">
                             <span data-toggle="tooltip" title="Reset Password"><button type="button" data-toggle="modal" data-target="#anyConfModal" onclick="anyConfClick('{{route('admin.member.password', ['id'=>$u->id])}}', 'Apakah Anda yakin akan mereset password member ini?')" class="btn btn-default btn-sm"><i class="fa fa-key"></i></button></span>
