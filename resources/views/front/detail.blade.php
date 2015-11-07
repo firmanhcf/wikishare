@@ -54,6 +54,7 @@
 											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}@if(!$c->is_deleted)&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-comment-{{$c->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span>@endif</li>
 										</ul>
 									</span>
+									@if(Auth::check())
 									@if(!$c->is_deleted)
 									<span class="buttons">
 				                      @if(Auth::user()->admin!= 0 && count($c->userRating)==0)
@@ -66,6 +67,7 @@
 				                      @endif
 
 				                    </span>
+				                    @endif
 				                    @endif
 								</div>
 								<div style="width:2000px;height:70px;"></div>
