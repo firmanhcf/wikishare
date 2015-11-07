@@ -110,7 +110,7 @@
 			margin: 0.5em 0 0 0;
 			padding: 0 0 0.5em 0;
 			font-size: 0.9em;
-			color: #bbb;
+			color: #555;
 		}
 		
 	footer
@@ -1159,3 +1159,11 @@ span.contributor-title {
 	.comment-section .comment-item .user-info{
 		padding-left: 10px;
 	}
+
+.fa-star{
+	color: goldenrod;
+}
+
+.fa-star-o{
+	color: goldenrod;
+}

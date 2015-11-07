@@ -21,4 +21,11 @@ class ArticleComment extends Model {
 		return $this->belongsTo('App\User', 'user_id');
 	}
 
+	public function userRating(){
+        return $this->hasMany('App\ArticleCommentRating', 'comment_id')->where('rater_id', '=', \Auth::user()->id);
+    }
+
+    public function rating(){
+        return $this->hasMany('App\ArticleCommentRating', 'comment_id');   
+    }
 }

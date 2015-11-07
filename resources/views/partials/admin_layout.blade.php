@@ -89,7 +89,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p id="rate-message-content"></p>
-                <input type="hidden" name="rating" class="rating rateinput" data-filled="fa fa-star fa-2x" data-empty="fa fa-star-o fa-2x" data-fractions="2"/>
+                <input type="hidden" name="rating" id="rating-val" class="rating rateinput" data-filled="fa fa-star fa-2x" data-empty="fa fa-star-o fa-2x" data-fractions="2"/>
               </div>
             </div>
           </div>
@@ -106,16 +106,17 @@
 
   <script type="text/javascript">
 
-    $('.rateinput').rating();
+    
 
     function anyConfClick(url, message){
         $('#form-action-modal').attr('action', url);
         $('#message-content').html(message);
     }
 
-    function rateClick(url, message){
+    function rateClick(url, message, val){
         $('#rate-action-modal').attr('action', url);
         $('#rate-message-content').html(message);
+        $('#rating-val').rating('rate', val);
     }
   </script>
 </body>

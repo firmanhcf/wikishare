@@ -13,6 +13,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700' rel='stylesheet' type='text/css'>
 		{!! HTML::style('assets/css/font-awesome.min.css') !!}
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}
+		{!! HTML::style('assets/css/bootstrap-rating.css') !!}
 		{!! HTML::style('assets/css/skel-noscript.css') !!}
 		{!! HTML::style('assets/css/style.css') !!}
 		{!! HTML::style('assets/css/style-desktop.css') !!}
@@ -42,6 +43,7 @@
 
 		{!! HTML::script('assets/js/jquery.min.js') !!}
 		{!! HTML::script('assets/js/bootstrap.min.js') !!}
+		{!! HTML::script('assets/js/bootstrap-rating.min.js') !!}
 		@yield('script')
 
 	</body>

@@ -12,7 +12,9 @@
 					<section>
 						<header>
 							<h2>{{$a->title}}</h2>
-							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$a->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$a->created_at}}</span>
+							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$a->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$a->created_at}}</span>&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-{{$a->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span>
+
+
 							<span style="float: right;">
 								@if(count($a->updateLog)>0)
 								Terakhir diedit oleh <b style="color:#aaa;">{{$a->updateLog[0]->user->name}}</b>
@@ -65,4 +67,16 @@
 	    border-color: #DE3D27;
 	}
 </style>
+@endsection
+
+@section('script')
+	<script type="text/javascript">
+		@foreach($articles as $a)
+			@if(count($a->rating)==0)
+				$('#rating-{{$a->id}}').rating('rate', '0');
+			@else
+				$('#rating-{{$a->id}}').rating('rate', '{{$a->rating[0]->rating}}');
+			@endif
+		@endforeach
+	</script>
 @endsection

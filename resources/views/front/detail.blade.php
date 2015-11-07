@@ -10,7 +10,7 @@
 					<section>
 						<header>
 							<h2>{{$article->title}}</h2>
-							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #aaa;">{{$article->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$article->created_at}}</span>
+							<span class="byline">Oleh&nbsp;&nbsp;<b style="color: #555;">{{$article->user->name}}</b>&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{$article->created_at}}</span>&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-input" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span>
 							<span style="float: right;">
 								@if(count($article->updateLog)>0)
 								Terakhir diedit oleh <b style="color:#aaa;">{{$article->updateLog[0]->user->name}}</b>
@@ -18,7 +18,7 @@
 								<a href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-o"></i>&nbsp;Simpan PDF</a>
 								@if(Auth::check())
 								&nbsp;|&nbsp;
-								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;|&nbsp;Edit Artikel</a>
+								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit Artikel</a>
 								@endif
 							</span>
 							</span>
@@ -51,7 +51,7 @@
 									<span class="user-info">
 										<ul>
 											<li><b>{{$c->user->name}}</b></li>
-											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}</li>
+											<li><i class="fa fa-calendar"></i>&nbsp;{{$c->created_at}}&nbsp;&nbsp;<span><input type="hidden" class="rating" id="rating-comment-{{$c->id}}" data-filled="fa fa-star" data-empty="fa fa-star-o" data-fractions="2" readonly></span></li>
 										</ul>
 									</span>
 								</div>
@@ -133,4 +133,22 @@
 		<!-- Main -->
 	</div>
 <!-- /Main -->
+@endsection
+
+@section('script')
+	<script type="text/javascript">
+		@if(count($article->rating)==0)
+			$('#rating-input').rating('rate', '0');
+		@else
+			$('#rating-input').rating('rate', '{{$article->rating[0]->rating}}');
+		@endif
+
+		@foreach($article->comment as $c)
+			@if(count($c->rating)==0)
+				$('#rating-comment-{{$c->id}}').rating('rate', '0');
+			@else
+				$('#rating-comment-{{$c->id}}').rating('rate', '{{$c->rating[0]->rating}}');
+			@endif
+		@endforeach
+	</script>
 @endsection

@@ -17,7 +17,7 @@ class CreateArticleCommentRatingsTable extends Migration {
 			$table->increments('id');
 			$table->integer('comment_id')->unsigned();
 			$table->integer('rater_id')->unsigned();
-			$table->integer('rating')->default(0.0);
+			$table->double('rating')->default(0.0);
 			$table->timestamps();
 		});
 	}
