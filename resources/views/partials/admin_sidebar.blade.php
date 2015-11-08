@@ -23,11 +23,6 @@
     <ul class="sidebar-menu">
       <li class="header">MENU</li>
       @if(Auth::user()->admin==0)
-      <li class="{{(Route::currentRouteName() == 'member.dashboard')?'active':''}}">
-        <a href="{{route('member.dashboard')}}">
-          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-        </a>
-      </li>
       <li class="{{(Route::currentRouteName() == 'profile')?'active':''}}">
         <a href="{{route('profile')}}">
           <i class="fa fa-file-text"></i> <span>Artikel</span>

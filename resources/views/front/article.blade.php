@@ -26,7 +26,20 @@
 						</header>
 						<ul class="style1">
 							@foreach($particles as $c)
-							<li><a href="{{route('detail',['id'=>$c->id, 'slug'=>$c->slug])}}">{{$c->title}}</a></li>
+							<li class="popular">
+								<div>
+									<ul class="popular-article">
+										<li>
+											<a href="{{route('detail',['id'=>$c->id, 'slug'=>$c->slug])}}">{{$c->title}}</a>
+										</li>
+										<li>
+											<span class="vertical-middle">Ditulis oleh <span><img src="{{is_null($c->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$c->photo)}}"> {{$c->name}}</span></span>
+											<span class="last"><i class="fa fa-comment-o"></i> {{$c->comments}} komentar</span>
+										</li>
+									</ul>
+								</div>
+								
+							</li>
 							@endforeach
 						</ul>
 					</section>
@@ -34,9 +47,19 @@
 						<header>
 							<h2>Member Teraktif </h2>
 						</header>
-						<ul class="style1">
+						<ul class="style1 active-user">
 							@foreach($users as $u)
-							<li>{{$u->name}}</li>
+							<div class="comment-section active-user">
+								<div class="comment-item">
+									<img src="{{is_null($u->photo)?url('assets/images/avatar2.png'):url('assets/img/'.$u->photo)}}">
+									<span class="user-info">
+										<ul class="active-user">
+											<li><b>{{$u->name}}</b></li>
+											<li><i class="fa fa-file-text-o"></i>&nbsp;{{$u->articles}} Artikel</li>
+										</ul>
+									</span>
+								</div>
+							</div>
 							@endforeach
 						</ul>
 					</section>

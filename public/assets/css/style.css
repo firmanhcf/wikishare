@@ -1163,6 +1163,22 @@ span.contributor-title {
 		float: left;
 	}
 
+		.comment-section .comment-item .user-info .active-user li{
+			padding: 0;
+			border: none;
+		}
+
+		.style1.active-user div:first-child {
+		  padding-top: 0;
+		  border-top: 0;
+		}
+
+		.comment-section.active-user{
+			padding-top: 10px !important;
+			border-top: 1px solid;
+  			border-color: rgba(0,0,0,.1);
+		}
+
 	.comment-section .comment-item .buttons{
 		float: right;
 		padding-top: 5px;
@@ -1183,3 +1199,35 @@ span.contributor-title {
 .fa-star-o{
 	color: goldenrod;
 }
+
+.style1 .popular .popular-article{
+	border: none;
+	padding: 0;
+}
+	.style1 .popular li{
+		border: none;
+		padding: 0;
+		color: #8e8e8e;
+	}
+
+	.style1 .popular .popular-article img{
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		vertical-align: middle;
+		margin-left: 5px;
+	}
+
+	.style1 .popular .popular-article .vertical-middle{
+		line-height:20px;
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding-top: 2px;
+	}
+
+	.style1 .popular .popular-article .last{
+		float: right;
+		line-height:28px;
+	    display: inline-block;
+	    vertical-align: middle;
+	}
