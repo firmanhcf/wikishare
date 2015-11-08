@@ -15,7 +15,7 @@
 								@if(count($article->updateLog)>0)
 								Terakhir diedit oleh <b style="color:#aaa;">{{$article->updateLog[0]->user->name}}</b>
 								@endif
-								<a href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-o"></i>&nbsp;Simpan PDF</a>
+								<a href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-pdf-o"></i>&nbsp;Simpan PDF</a>
 								@if(Auth::check())
 								&nbsp;|&nbsp;
 								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit Artikel</a>
@@ -25,8 +25,31 @@
 						</header>
 						{!!$article->content!!}
 						
-						
-						<br>
+						@if(Auth::check())
+						@if((Auth::user()->admin ==1 || Auth::user()->admin ==2) && count($article->userRating)==0)
+							<div style="
+								padding: 10px;
+								background-color: #eee;
+								border: 1px solid #e7e7e7;
+								">
+								<h4 style="
+								font-weight: bold;
+								">Bagaimana artikel ini menurut Anda?</h4>
+								<button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('admin.article.rate', ['id' => $article->id])}}', 'Silahkan isi nilai untuk artikel ini', {{(count($article->userRating)==0)?'0':''.$article->userRating[0]->rating}})" class="button">Berikan rating</button>
+								</div>
+						@elseif(Auth::user()->admin == 3 && $article->user->division->id == Auth::user()->division->id)
+							<div style="
+								padding: 10px;
+								background-color: #eee;
+								border: 1px solid #e7e7e7;
+								">
+								<h4 style="
+								font-weight: bold;
+								">Bagaimana artikel ini menurut Anda?</h4>
+								<button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('admin.article.rate', ['id' => $article->id])}}', 'Silahkan isi nilai untuk artikel ini', {{(count($article->userRating)==0)?'0':''.$article->userRating[0]->rating}})" class="button">Berikan rating</button>
+								</div>
+						@endif
+						@endif
 						<hr>
 						<div class="comment-section">
 							<form action="{{route('article.comment.store', ['id'=>$article->id])}}" method="POST">
@@ -57,7 +80,11 @@
 									@if(Auth::check())
 									@if(!$c->is_deleted)
 									<span class="buttons">
-				                      @if(Auth::user()->admin!= 0 && count($c->userRating)==0)
+				                      @if((Auth::user()->admin== 1 || Auth::user()->admin== 2) && count($c->userRating)==0)
+
+				                      <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('article.comment.rate', ['id' => $c->id])}}', 'Silahkan isi nilai untuk komentar ini', {{(count($c->userRating)==0)?'0':''.$c->userRating[0]->rating}})" class="btn btn-xs btn-default"><i class="fa fa-star"></i>
+				                      </button>
+				                      @elseif(Auth::user()->admin == 3 && $article->user->division->id == Auth::user()->division->id)
 				                      <button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('article.comment.rate', ['id' => $c->id])}}', 'Silahkan isi nilai untuk komentar ini', {{(count($c->userRating)==0)?'0':''.$c->userRating[0]->rating}})" class="btn btn-xs btn-default"><i class="fa fa-star"></i>
 				                      </button>
 				                      @endif
@@ -203,10 +230,10 @@
 
 @section('script')
 	<script type="text/javascript">
-		@if(count($article->rating)==0)
+		@if(count($article->userRating)==0)
 			$('#rating-input').rating('rate', '0');
 		@else
-			$('#rating-input').rating('rate', '{{$article->rating[0]->rating}}');
+			$('#rating-input').rating('rate', '{{$article->userRating[0]->rating}}');
 		@endif
 
 		@foreach($article->comment as $c)

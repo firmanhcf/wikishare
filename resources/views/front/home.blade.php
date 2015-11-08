@@ -113,10 +113,10 @@
 @section('script')
 	<script type="text/javascript">
 		@foreach($articles as $a)
-			@if(count($a->rating)==0)
+			@if(count($a->userRating)==0)
 				$('#rating-{{$a->id}}').rating('rate', '0');
 			@else
-				$('#rating-{{$a->id}}').rating('rate', '{{$a->rating[0]->rating}}');
+				$('#rating-{{$a->id}}').rating('rate', '{{$a->userRating[0]->rating}}');
 			@endif
 		@endforeach
 	</script>
