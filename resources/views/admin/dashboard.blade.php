@@ -106,7 +106,8 @@
                           Ditolak
                         @endif
                       </td>
-                      <td>{{date_format($u->created_at,"d/m/Y")}}</td>
+                      <td>{{date_format($u->updated_at,"d/m/Y")}}</td>
+                      <td>{{count($u->updateLog)>0?$u->updateLog[0]->user->name:'-'}}</td>
                       <td>
 
                         <ul class="list-inline"> 
