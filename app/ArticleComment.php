@@ -11,7 +11,7 @@ class ArticleComment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['article_id', 'user_id', 'comment', 'rating'];
+	protected $fillable = ['article_id', 'user_id', 'comment', 'rating', 'is_deleted', 'deleted_by'];
 
 	public function article(){
 		return $this->belongsTo('App\Article', 'article_id');

@@ -33,7 +33,7 @@ class Article extends Model {
     }
 
     public function comment(){
-        return $this->hasMany('App\ArticleComment', 'article_id')->orderBy('updated_at', 'desc');
+        return $this->hasMany('App\ArticleComment', 'article_id')->orderBy('created_at', 'asc');
     }
 
     public function userRating(){

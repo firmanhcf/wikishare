@@ -37,7 +37,7 @@
 								">Bagaimana artikel ini menurut Anda?</h4>
 								<button type="button" data-toggle="modal" data-target="#rateModal" onclick="rateClick('{{route('admin.article.rate', ['id' => $article->id])}}', 'Silahkan isi nilai untuk artikel ini', {{(count($article->userRating)==0)?'0':''.$article->userRating[0]->rating}})" class="button">Berikan rating</button>
 								</div>
-						@elseif(Auth::user()->admin == 3 && $article->user->division->id == Auth::user()->division->id)
+						@elseif(Auth::user()->admin == 3 && $article->user->division->id == Auth::user()->division->id && count($article->userRating)==0)
 							<div style="
 								padding: 10px;
 								background-color: #eee;

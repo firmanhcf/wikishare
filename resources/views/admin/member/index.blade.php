@@ -115,6 +115,7 @@
                     <tr>
                       <th>#</th>
                       <th>Nama</th>
+                      <th>Rating</th>
                       <th>Divisi</th>
                       <th>Role</th>
                       <th>Status</th>
@@ -126,6 +127,32 @@
                     <tr>
                       <td>{{($i+1)}}</td>
                       <td>{{$u->name}}</td>
+                      <td>
+                        <?php 
+                          $rate = 0.0;
+                          $rateArr = [];
+
+                          foreach ($u->article as $art) {
+                            foreach ($art->comment as $ca) {
+                              if(count($ca->userRating)>0 && !$ca->is_deleted){
+                                array_push($rateArr, $ca->userRating[0]->rating);
+                                
+                              }
+                            }
+
+                            if(count($art->userRating)>0){
+                              array_push($rateArr, $art->userRating[0]->rating);
+                            }
+                            
+                          }
+
+                          if(count($rateArr)>0){
+                            $rate = array_sum($rateArr)/count($rateArr);
+                          }
+
+                        ?>
+                        <i class="fa fa-star"></i>&nbsp;{{$rate}}
+                      </td>
                       <td>{{$u->division->name}}</td>
                       <td>
                         @if($u->admin==0)

@@ -146,6 +146,7 @@
     width: 170px;
     height: 170px;
     overflow:hidden;
+    border-radius: 50%;
   }
   div.center-cropped img {
     height: 100%;

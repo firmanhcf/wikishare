@@ -172,7 +172,7 @@ class AdminArticleController extends Controller {
 		$newAr = new ArticleRating();
 		$newAr -> article_id = $id;
 		$newAr -> rater_id = \Auth::user()->id;
-		$newAr -> rating = $request -> rating;
+		$newAr -> rating = (double)$request -> rating;
 		
 		if($newAr -> save()){
 			return redirect()
@@ -201,7 +201,7 @@ class AdminArticleController extends Controller {
 		$newAr = new ArticleCommentRating();
 		$newAr -> comment_id = $id;
 		$newAr -> rater_id = \Auth::user()->id;
-		$newAr -> rating = $request -> rating;
+		$newAr -> rating = (double)$request -> rating;
 		
 		if($newAr -> save()){
 			return redirect()

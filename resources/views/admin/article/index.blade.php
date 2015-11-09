@@ -158,7 +158,6 @@
                       <th>Judul</th>
                       <th>Author</th>
                       <th>Status</th>
-                      <th>Rating</th>
                       <th>Dibuat Tanggal</th>
                       <th>Ubah Status</th>
                       <th>Aksi</th>
@@ -179,29 +178,6 @@
                         @else
                           Ditolak
                         @endif
-                      </td>
-                      <td>
-                        <i class="fa fa-star"></i>&nbsp;
-                        <?php 
-                          $rateArr=[];
-
-                          if(count($u->userRating)>0){
-                            array_push($rateArr, $u->userRating[0]->rating);
-                          }
-
-                          foreach ($u->comment as $cm) {
-                            if(count($cm->userRating)>0){
-                              array_push($rateArr, $cm->userRating[0]->rating);
-                            }
-                          }
-
-                          $avgRate = 0;
-                          if(count($rateArr)>0){
-                            $avgRate = array_sum($rateArr)/count($rateArr);
-                          }
-                          
-                        ?>
-                        {{$avgRate}}
                       </td>
                       <td>{{date_format($u->created_at,"d/m/Y")}}</td>
                       <td>
