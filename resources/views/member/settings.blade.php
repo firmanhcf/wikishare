@@ -155,10 +155,13 @@
     position: relative;
     transform: translateX(-50%);
   }
+
 </style>
 @endsection
 
 @section('script')
+  
+
   <script type="text/javascript">
     $('#choose-photo-btn').click(function() {
       $('#file-input').click();
@@ -180,6 +183,9 @@
     $("#file-input").change(function(){
         readURL(this);
         $('#profile-form').submit();
+        $('#choose-photo-btn').attr('disabled', 'disabled');
+        $('#choose-photo-btn').fadeTo(100, 0.4);
+        $('#choose-photo-btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;Menguggah Foto');
     });
   </script>
 @endsection
