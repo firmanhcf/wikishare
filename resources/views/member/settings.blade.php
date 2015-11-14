@@ -24,9 +24,8 @@
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
-                  <div class="center-cropped" style="background-image: url('{{url('assets/images/avatar2.png')}}')">
-                    <div class="center-cropped" style="background-image: url('{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}')">
-                    </div>  
+                  <div class="center-cropped">
+                      <img id="image-preview" src="{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}" alt="" />
                   </div>  
                   <input type="file" name="user_photo" id="file-input" style="opacity: 0;">
                   <a href="#" class="btn btn-primary" id="choose-photo-btn">Pilih Foto</a>
@@ -144,12 +143,17 @@
 @section('style')
 <style type="text/css">
   div.center-cropped {
-      width: 170px;
-      height: 170px;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      border-radius: 50%;
+    width: 170px;
+    height: 170px;
+    overflow:hidden;
+    border-radius: 50%;
+  }
+  div.center-cropped img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
   }
 
 </style>
@@ -163,7 +167,21 @@
       $('#file-input').click();
     });
 
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     $("#file-input").change(function(){
+        readURL(this);
         $('#profile-form').submit();
         $('#choose-photo-btn').attr('disabled', 'disabled');
         $('#choose-photo-btn').fadeTo(100, 0.4);

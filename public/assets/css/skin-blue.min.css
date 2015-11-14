@@ -71,3 +71,8 @@
       background-size: cover;
       border-radius: 50%;
   }
+
+img{
+	object-fit: cover;
+  	object-position: center;
+}
