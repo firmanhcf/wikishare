@@ -2,8 +2,9 @@
   <section class="sidebar">
     
     <div class="user-panel">
-      <div class="pull-left sidebar center-crop" style="background-image: url('{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}')">
-          
+      <div class="pull-left sidebar center-crop" style="background-image: url('{{url('assets/images/avatar2.png')}}')">
+          <div class="pull-left sidebar center-crop" style="background-image: url('{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}')">
+          </div>
       </div>
       <div class="pull-left info">
         <p>{{Auth::user()->name}}</p>

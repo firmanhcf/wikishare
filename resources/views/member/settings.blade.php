@@ -24,7 +24,9 @@
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
-                  <div class="center-cropped" style="background-image: url('{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}')">
+                  <div class="center-cropped" style="background-image: url('{{url('assets/images/avatar2.png')}}')">
+                    <div class="center-cropped" style="background-image: url('{{is_null(Auth::user()->photo)?url('assets/images/avatar2.png'):url('assets/img/'.Auth::user()->photo)}}')">
+                    </div>  
                   </div>  
                   <input type="file" name="user_photo" id="file-input" style="opacity: 0;">
                   <a href="#" class="btn btn-primary" id="choose-photo-btn">Pilih Foto</a>
