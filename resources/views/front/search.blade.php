@@ -40,6 +40,11 @@
 				</div>
 				<div class="3u">
 					<section class="sidebar">
+						<div>
+							<form action="{{route('search')}}" method="GET" >
+								<input type="text" name="q" placeholder="Cari artikel">
+							</form>
+						</div>
 						<header>
 							<h2>Artikel Populer </h2>
 						</header>

@@ -3,7 +3,7 @@
 			
 		<!-- Logo -->
 			<div id="logo">
-				<h1><a href="{{route('home')}}">WIKI SHARE</a></h1>
+				<h1><a href="{{route('home')}}">Share2gather</a></h1>
 			</div>
 		
 		<!-- Nav -->

@@ -29,7 +29,13 @@ class Article extends Model {
 
     public function scopeText($query, $q){
         return $query -> where('title', 'like', '%'.$q.'%')
-        			  -> orWhere('content', 'like', '%'.$q.'%');
+        			  -> orWhere('content', 'like', '%'.$q.'%')
+                      -> where('approval_status', '=', 'accepted');
+    }
+
+    public function scopeAuthor($query, $id){
+        return $query -> where('user_id', '=', $id)
+                      -> where('approval_status', '=', 'accepted');
     }
 
     public function comment(){

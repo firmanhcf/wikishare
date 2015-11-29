@@ -932,6 +932,18 @@
 		font-size: 1.6em;
 	}
 
+	.sidebar div{
+		padding-bottom: 15px;
+	}
+
+	.sidebar input{
+		width: 100%;
+		border-radius: 3px;
+		border: 1px solid #bbb;
+		padding: 4px 8px 3px 8px;
+		background-color: #f8f8f8;
+	}
+
 /*********************************************************************************/
 /* Footer                                                                        */
 /*********************************************************************************/

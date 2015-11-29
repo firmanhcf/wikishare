@@ -55,7 +55,7 @@ class AuthController extends Controller {
 
 		if(!$user){
 			return redirect()->back()->withErrors([
-						'err_msg' => 'Akun ini belum terdaftar dalam sistem Wiki Share.',
+						'err_msg' => 'Akun ini belum terdaftar dalam sistem Share2gather.',
 					]);
 		}
 		else{

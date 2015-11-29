@@ -44,7 +44,7 @@ class AdminArticleController extends Controller {
 		$article -> approval_status = 'accepted';
 		if($article ->save()){
 			return redirect() ->back()
-							  ->with('success', 'Artikel telah disetujui dan dipublikasikan di halaman Wiki Share');
+							  ->with('success', 'Artikel telah disetujui dan dipublikasikan di halaman Share2gather');
 		}
 
 		return redirect()

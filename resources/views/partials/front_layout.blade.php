@@ -6,10 +6,11 @@
 -->
 <html>
 	<head>
-		<title>Wiki Share</title>
+		<title>Share2gather</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
+    <link rel="shortcut icon" href="{{ url('favicon.ico') }}">
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700' rel='stylesheet' type='text/css'>
 		{!! HTML::style('assets/css/font-awesome.min.css') !!}
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}

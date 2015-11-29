@@ -88,11 +88,15 @@ class HomeController extends Controller {
 								     ->take(5)
 								     ->get();
 		$queryBuilder = Article::query();
+
+		$user = null;
+
 		if($request->has('kategori')){
 			$queryBuilder -> category($request->kategori);
 		}
 
 		if($request->has('q')){
+			
 			$queryBuilder -> text($request->q);
 		}
 

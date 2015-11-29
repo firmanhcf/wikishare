@@ -57,7 +57,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'no-reply@wikishare.com', 'name' => 'Wiki Share'],
+	'from' => ['address' => 'no-reply@share2gather.com', 'name' => 'Share2gather'],
 
 	/*
 	|--------------------------------------------------------------------------

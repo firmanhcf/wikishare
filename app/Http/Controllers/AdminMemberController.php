@@ -62,8 +62,8 @@ class AdminMemberController extends Controller {
 				'newPwd' => $newPwd
 			], function($message) use($newUser)
 			{
-				$message->from('no-reply@wikishare.com', 'Wiki Share');
-			    $message->to($newUser -> email, $newUser -> username)->subject('Selamat Datang di Wiki Share!');
+				$message->from('no-reply@share2gather.com', 'Share2gather');
+			    $message->to($newUser -> email, $newUser -> username)->subject('Selamat Datang di Share2gather!');
 			});
 
 			return redirect()
@@ -97,7 +97,7 @@ class AdminMemberController extends Controller {
 				'newPwd' => $newPwd
 			], function($message) use($newUser)
 			{
-				$message->from('no-reply@wikishare.com', 'Wiki Share');
+				$message->from('no-reply@share2gather.com', 'Share2gather');
 			    $message->to($newUser -> email, $newUser -> username)->subject('Anda memiliki password baru!');
 			});
 
