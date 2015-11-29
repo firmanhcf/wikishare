@@ -38,14 +38,3 @@
 	</div>
 <!-- /Main -->
 @endsection
-
-@section('style')
-
-<style type="text/css">
-
-	#banner{
-		background: url({{url('assets/img/'.$banner->photo)}}) no-repeat center;
-	}
-</style>
-
-@endsection
