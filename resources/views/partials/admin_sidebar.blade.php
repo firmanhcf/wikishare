@@ -62,10 +62,16 @@
             <i class="fa fa-puzzle-piece"></i> <span>Divisi</span>
           </a>
         </li>
+      
+      <li class="{{(Route::currentRouteName() == 'admin.settings.blog')?'active':''}}">
+        <a href="{{route('admin.settings.blog')}}">
+          <i class="fa fa-gear"></i> <span>Tampilan Blog</span>
+        </a>
+      </li>
       @endif
       <li class="{{(Route::currentRouteName() == 'member.settings.view')?'active':''}}">
         <a href="{{route('member.settings.view')}}">
-          <i class="fa fa-gear"></i> <span>Pengaturan</span>
+          <i class="fa fa-user"></i> <span>Akun Saya</span>
         </a>
       </li>
       

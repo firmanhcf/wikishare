@@ -1,4 +1,12 @@
 @extends('partials.front_layout')
+
+@section('banner')
+	<div id="banner">
+		<div class="container">
+		</div>
+	</div>
+@endsection
+
 @section('content')
 
 <!-- Main -->
@@ -113,6 +121,10 @@
 	    cursor: default;
 	    background-color: #DE3D27;
 	    border-color: #DE3D27;
+	}
+
+	#banner{
+		background: url({{url('assets/img/'.$banner->photo)}}) no-repeat center;
 	}
 </style>
 @endsection

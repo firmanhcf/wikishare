@@ -1,4 +1,12 @@
 @extends('partials.front_layout')
+
+@section('banner')
+	<div id="banner">
+		<div class="container">
+		</div>
+	</div>
+@endsection
+
 @section('content')
 
 <!-- Main -->
@@ -15,7 +23,13 @@
 								@if(count($article->updateLog)>0)
 								Terakhir diedit oleh <b style="color:#aaa;">{{$article->updateLog[0]->user->name}}</b>
 								@endif
-								<a href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-pdf-o"></i>&nbsp;Simpan PDF</a>
+
+								@if($article->is_pdf)
+									<a target="_blank" href="{{url('/assets/pdf/'.$article->pdf)}}"><i class="fa fa-file-pdf-o"></i>&nbsp;Simpan PDF</a>
+								@else
+									<a target="_blank" href="{{route('article.pdf',['id'=>$article->id])}}"><i class="fa fa-file-pdf-o"></i>&nbsp;Simpan PDF</a>
+								@endif
+
 								@if(Auth::check())
 								&nbsp;|&nbsp;
 								<a href="{{route('article.edit',['id'=>$article->id])}}"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit Artikel</a>
@@ -23,12 +37,23 @@
 							</span>
 							</span>
 						</header>
-						{!!$article->content!!}
+						@if($article->is_pdf)
+							<div id="pdf">
+								<object data="{{url('/assets/pdf/'.$article->pdf)}}#toolbar=1&amp;navpanes=0&amp;scrollbar=1&amp;page=1&amp;view=FitH" type="application/pdf" width="100%" height="100%" title="PDF Viewer"></object>
+							</div>
+						@else
+							<?php 
+								$artCont = str_replace('src="filemanager', 'src="../../filemanager', $article->content);
+							?>
+							{!! $artCont !!}
+						@endif
+						
 						
 						@if(Auth::check())
 						@if((Auth::user()->admin ==1 || Auth::user()->admin ==2) && count($article->userRating)==0)
 							<div style="
 								padding: 10px;
+								margin-top: 10px;
 								background-color: #eee;
 								border: 1px solid #e7e7e7;
 								">
@@ -233,7 +258,23 @@
 <!-- /Main -->
 @endsection
 
+@section('style')
+
+<style type="text/css">
+
+	#banner{
+		background: url({{url('assets/img/'.$banner->photo)}}) no-repeat center;
+	}
+
+	#pdf{
+		height: 500px; 
+	}
+</style>
+
+@endsection
+
 @section('script')
+	
 	<script type="text/javascript">
 		@if(count($article->userRating)==0)
 			$('#rating-input').rating('rate', '0');

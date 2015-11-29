@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', 					['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('/home', 				['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('kategori-artikel', 		['as' => 'article', 'uses' => 'HomeController@article']);
-Route::get('artikel/{id}/{slug}', 	['as' => 'detail', 'uses' => 'HomeController@detail']);
-Route::get('artikelpdf/{id}', 		['as' => 'article.pdf', 'uses' => 'HomeController@articlePDF']);
-Route::get('pencarian', 			['as' => 'search', 'uses' => 'HomeController@search']);
+Route::get('/', 												['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/home', 											['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('kategori-artikel', 									['as' => 'article', 'uses' => 'HomeController@article']);
+Route::get('artikel/{id}/{slug}', 								['as' => 'detail', 'uses' => 'HomeController@detail']);
+Route::get('artikelpdf/{id}', 									['as' => 'article.pdf', 'uses' => 'HomeController@articlePDF']);
+Route::get('pencarian', 										['as' => 'search', 'uses' => 'HomeController@search']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -25,7 +25,7 @@ Route::controllers([
 
 Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], function(){
 
-	Route::get('member/dashboard', 				['as' => 'member.dashboard', 'uses' => 'MemberController@getDashboard']);
+	Route::get('member/dashboard', 			['as' => 'member.dashboard', 'uses' => 'MemberController@getDashboard']);
 	Route::get('artikel', 					['as' => 'profile', 'uses' => 'MemberController@index']);
 	Route::post('artikel', 					['as' => 'article.store', 'uses' => 'ArticleController@store']);
 	Route::get('artikel/{id}/edit/view', 	['as' => 'article.edit', 'uses' => 'ArticleController@edit']);
@@ -59,10 +59,16 @@ Route::group(['domain' => env('APP_BASE_DOMAIN'), 'middleware' => 'auth'], funct
 	Route::post('divisi/add', 						['as' => 'admin.division.add', 'uses' => 'AdminDivisiController@store']);
 	Route::get('divisi/{id}/remove', 				['as' => 'admin.division.remove', 'uses' => 'AdminDivisiController@destroy']);
 	Route::post('divisi/{id}/edit', 				['as' => 'admin.division.edit', 'uses' => 'AdminDivisiController@update']);
-	
+
+	Route::get('tampilan-blog',						['as' => 'admin.settings.blog', 'uses' => 'AdminDashboardController@blogSettings']);
+	Route::post('tampilan-blog/gambar-statis',		['as' => 'admin.settings.blog.image.static', 'uses' => 'AdminDashboardController@blogStaticImage']);
+	Route::post('tampilan-blog/banner/{id}/hapus',	['as' => 'admin.settings.blog.banner.remove', 'uses' => 'AdminDashboardController@deleteBanner']);
+	Route::post('tampilan-blog/banner/{id}/update',	['as' => 'admin.settings.blog.banner.update', 'uses' => 'AdminDashboardController@updateBanner']);
+	Route::post('tampilan-blog/banner/add',			['as' => 'admin.settings.blog.banner.add', 'uses' => 'AdminDashboardController@addBanner']);
 
 	Route::post('article/{id}/comment', 			['as' => 'article.comment.store', 'uses' => 'ArticleController@addComment']);
 	Route::post('comment/{id}/delete', 				['as' => 'article.comment.delete', 'uses' => 'ArticleController@deleteComment']);
 	Route::post('comment/{id}/rate', 				['as' => 'article.comment.rate', 'uses' => 'AdminArticleController@rateComment']);
 	
+	Route::controller('/filemanager', 'FilemanagerLaravelController');
 });

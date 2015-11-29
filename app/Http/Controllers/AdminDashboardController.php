@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Banner;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller {
@@ -19,6 +19,102 @@ class AdminDashboardController extends Controller {
 
 		$allArticles = \App\Article::where('approval_status','=','pending')->orderBy('updated_at', 'desc')->get();
 		return view('admin.dashboard', compact('allArticles', 'articles', 'users'));
+	}
+
+	public function addBanner(Request $request){
+		$banner = new Banner();
+		$banner->sequence = 1;
+
+		$picture = "";
+
+        if($request->hasFile('banner_photo'))
+        {
+            $file = $request->file('banner_photo');
+            $filename = $file->getClientOriginalName();
+            $extension = $file -> getClientOriginalExtension();
+            $picture = sha1($filename . time()) . '.' . $extension;
+            $banner->photo = $picture;
+
+        }
+
+        if($request->hasFile('banner_photo'))
+        {
+            $destinationPath = public_path() . '/assets/img/';
+            $request->file('banner_photo')->move($destinationPath, $picture);
+        }
+
+		if($banner->save()){
+            return redirect()
+			->back()
+			->with('success', 'Banner telah ditambah');
+        };
+	}
+
+	public function updateBanner(Request $request, $id){
+		$banner = Banner::findOrFail($id);
+		$picture = $banner->photo;
+
+        if($request->hasFile('banner_photo'))
+        {
+            $file = $request->file('banner_photo');
+            $filename = $file->getClientOriginalName();
+            $extension = $file -> getClientOriginalExtension();
+            $picture = sha1($filename . time()) . '.' . $extension;
+            $banner->photo = $picture;
+
+        }
+
+        if($request->hasFile('banner_photo'))
+        {
+            $destinationPath = public_path() . '/assets/img/';
+            $request->file('banner_photo')->move($destinationPath, $picture);
+        }
+
+		if($banner->save()){
+            return redirect()
+			->back()
+			->with('success', 'Banner telah diperbarui');
+        };
+	}
+
+	public function deleteBanner($id){
+		$destroy = Banner::destroy($id);
+		return redirect()
+			->back()
+			->with('success', 'Banner telah dihapus');
+	}
+
+	public function blogSettings(){
+		$static = Banner::where('sequence', '=', 0)->first();
+		$banners = Banner::where('sequence', '!=', 0)->get();
+		return view('admin.settings.blog', compact('static', 'banners'));
+	}
+
+	public function blogStaticImage(Request $request){
+		$banner = Banner::where('sequence', '=', 0)->first();
+		$picture = $banner->photo;
+
+        if($request->hasFile('static_photo'))
+        {
+            $file = $request->file('static_photo');
+            $filename = $file->getClientOriginalName();
+            $extension = $file -> getClientOriginalExtension();
+            $picture = sha1($filename . time()) . '.' . $extension;
+            $banner->photo = $picture;
+
+        }
+
+        if($request->hasFile('static_photo'))
+        {
+            $destinationPath = public_path() . '/assets/img/';
+            $request->file('static_photo')->move($destinationPath, $picture);
+        }
+
+		if($banner->save()){
+            return redirect()
+			->back()
+			->with('success', 'Gambar statis telah diperbarui');
+        };
 	}
 
 }

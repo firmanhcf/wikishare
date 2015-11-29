@@ -76,3 +76,16 @@ img{
 	object-fit: cover;
   	object-position: center;
 }
+
+.pdf-upload{
+	font-weight: normal;
+}
+
+	.pdf-upload a{
+		text-decoration: underline;
+	}
+
+#upload-pdf-input{
+	height : 0;
+	opacity: 0;
+}

@@ -30,7 +30,7 @@
             <div class="tab-content">
               @if(Auth::user()->admin!=1)
               <div class="tab-pane" id="revenue-chart" style="position: relative; min-height: 200px;">
-                <form class="form-horizontal" action="{{route('article.store')}}" method="POST">
+                <form class="form-horizontal" enctype="multipart/form-data" action="{{route('article.store')}}" method="POST">
                   <input name="_token" type="hidden" value="{{csrf_token()}}">
                   <div class="row" style="margin:5px;">
                     <div class="col-lg-12">
@@ -51,7 +51,9 @@
                       </div>
 
                       <div class="form-group">
-                        <label>Isi Artikel</label>
+                        <label>Isi Artikel&nbsp;<span class="pdf-upload">atau <a href="#" id="upload-pdf-link" onclick="choosePDF()">upload pdf</a> sebagai artikel</span></label>
+                        <input name="pdf_content" type="file" id="upload-pdf-input" onchange="fileChanged()">
+                        <input name="is_pdf" type="hidden" id="upload-pdf-status"  value="false">
                         <textarea name="isi" id="mytextarea" placeholder="Masukkan isi artikel Anda"></textarea>
                         {!!$errors->first('judul', '<label class="control-label has-error">:message</label>')!!}
                       </div>
@@ -410,6 +412,23 @@
     function deleteClick(url){
       $('#submit-del-art').attr('href', url);
     }
+
+    function choosePDF(){
+      $('#upload-pdf-input').click();
+    }
+
+    function cancelPDF(){
+      $('.pdf-upload').html('atau <a href="#" id="upload-pdf-link" onclick="choosePDF()"> upload pdf</a> sebagai artikel');
+      $('#mceu_21').css('display','');
+      $('#upload-pdf-status').val(false);
+    }
+
+    function fileChanged(){
+      $('.pdf-upload').html('<a href="#" id="upload-pdf-link" onclick="choosePDF()">ganti pdf</a> atau <a href="#" id="upload-pdf-cancel" onclick="cancelPDF()"> batalkan</a> pdf');
+      $('#mceu_21').css('display','none');
+      $('#upload-pdf-status').val(true);
+
+    };
   </script>
 @endsection
 

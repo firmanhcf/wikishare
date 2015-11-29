@@ -20,7 +20,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" enctype="multipart/form-data" action="{{route('admin.member.edit.action', ['id'=>$user->id])}}" method="POST">
+            <form role="form" id="profile-form" enctype="multipart/form-data" action="{{route('admin.member.edit.action', ['id'=>$user->id])}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
@@ -122,6 +122,7 @@
     width: 170px;
     height: 170px;
     overflow:hidden;
+    border-radius: 50%;
   }
   div.center-cropped img {
     height: 100%;
@@ -130,6 +131,7 @@
     position: relative;
     transform: translateX(-50%);
   }
+
 </style>
 @endsection
 
@@ -154,6 +156,10 @@
 
     $("#file-input").change(function(){
         readURL(this);
+        $('#profile-form').submit();
+        $('#choose-photo-btn').attr('disabled', 'disabled');
+        $('#choose-photo-btn').fadeTo(100, 0.4);
+        $('#choose-photo-btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;Menguggah Foto');
     });
   </script>
 @endsection

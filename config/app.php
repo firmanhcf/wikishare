@@ -146,7 +146,8 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
-
+		'Intervention\Image\ImageServiceProvider',
+		
 	],
 
 	/*
@@ -197,7 +198,7 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'HTML'		=> 'Illuminate\Html\HtmlFacade',
 		'PDF'       => 'Barryvdh\DomPDF\Facade',
-
+		'Image' 	=> 'Intervention\Image\Facades\Image',
 	],
 
 ];

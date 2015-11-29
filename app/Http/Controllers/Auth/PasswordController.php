@@ -5,6 +5,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use App\Banner;
 
 class PasswordController extends Controller {
 
@@ -84,7 +85,8 @@ class PasswordController extends Controller {
 			throw new NotFoundHttpException;
 		}
 
-		return view('auth.reset')->with('token', $token);
+		$banner = Banner::where('sequence', '=', '0')->first();
+		return view('auth.reset', compact('banner'))->with('token', $token);
 	}
 
 	/**

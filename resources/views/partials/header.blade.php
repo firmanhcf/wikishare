@@ -3,7 +3,8 @@
 			
 		<!-- Logo -->
 			<div id="logo">
-				<h1><a href="{{route('home')}}">Share2gather</a></h1>
+				<h1 style="margin-bottom: 5px;"><a href="{{route('home')}}">Share2gather</a></h1>
+				<span style="padding-top:30px !important;">Wadahnya</span>
 			</div>
 		
 		<!-- Nav -->

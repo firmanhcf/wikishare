@@ -1,4 +1,32 @@
 @extends('partials.front_layout')
+
+@section('banner')
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+      	@foreach($banners as $i=>$item)
+        	<li data-target="#myCarousel" data-slide-to="{{$i}}" class="{{($i==0)?'active':''}}"></li>
+        @endforeach
+        
+      </ol>
+      <div class="carousel-inner" role="listbox">
+      	@foreach($banners as $i=>$item)
+        <div class="item {{($i==0)?'active':''}}">
+          <img class="first-slide" src="{{url('assets/img/'.$item->photo)}}" alt="photo">
+        </div>
+        @endforeach
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+@endsection
+
 @section('content')
 
 <!-- Main -->

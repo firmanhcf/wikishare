@@ -30,10 +30,8 @@
 	<!-- Header -->
 
 	<!-- Banner -->
-		<div id="banner">
-			<div class="container">
-			</div>
-		</div>
+    @yield('banner')
+		
 	<!-- /Banner -->
 	
 		@yield('content')

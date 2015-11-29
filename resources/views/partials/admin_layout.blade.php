@@ -12,27 +12,34 @@
   {!! HTML::style('assets/css/skin-blue.min.css') !!}
   {!! HTML::style('assets/css/bootstrap-rating.css') !!}
   {!! HTML::style('assets/plugins/datatables/dataTables.bootstrap.css') !!}
-
+  
   @yield('style')
 
   {!! HTML::script('assets/js/jquery.min.js') !!}
   {!! HTML::script('assets/js/bootstrap.min.js') !!}
   {!! HTML::script('assets/js/bootstrap-rating.min.js') !!}
-  {!! HTML::script('assets/js/tinymce/tinymce.min.js') !!}
+  {!! HTML::script('tinymce/tinymce.min.js') !!}
+  {!! HTML::script('tinymce/tinymce_editor.js') !!}
   {!! HTML::script('assets/plugins/datatables/jquery.dataTables.min.js') !!}
   {!! HTML::script('assets/plugins/datatables/dataTables.bootstrap.min.js') !!}
   
   <script type="text/javascript">
-      tinymce.init({
-          selector: "#mytextarea",
-          height: 300,
-          plugins: [
-              "advlist autolink lists link image charmap print preview anchor",
-              "searchreplace visualblocks code fullscreen",
-              "insertdatetime media table contextmenu paste"
-          ],
-          toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-      });
+    editor_config.selector = "#mytextarea";
+    editor_config.path_absolute = "{{url('')}}/";
+    editor_config.language = 'en';
+    editor_config.height = 300;
+    tinymce.init(editor_config);
+      // tinymce.init({
+      //     selector: "",
+      //     height: 300,
+      //     plugins: [
+      //         "advlist autolink lists link image charmap print preview anchor",
+      //         "searchreplace visualblocks code fullscreen",
+      //         "insertdatetime media table contextmenu paste"
+      //     ],
+      //     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+      //     path_absolute : '{{url("/")}}'
+      // });
   </script>
   
 </head>

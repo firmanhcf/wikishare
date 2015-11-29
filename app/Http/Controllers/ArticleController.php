@@ -25,8 +25,7 @@ class ArticleController extends Controller {
 	{
 
 		$this->validate($request, 
-			['judul' => 'required',
-			'isi' => 'required'], 
+			['judul' => 'required'], 
 			['required' => 'Silahkan masukkan :attribute artikel Anda']);
 
 		$article = new Article();
@@ -37,6 +36,25 @@ class ArticleController extends Controller {
 		$article -> user_id = \Auth::user()->id;
 		$article -> article_status = 'unpublished';
 		$article -> approval_status = 'pending';
+		$article -> is_pdf = false;
+
+		$pdf="";
+		if($request->is_pdf=="true")
+        {
+			$article -> is_pdf = true;
+            $file = $request->file('pdf_content');
+            $filename = $file->getClientOriginalName();
+            $extension = $file -> getClientOriginalExtension();
+            $pdf = sha1($filename . time()) . '.' . $extension;
+            $article->pdf = $pdf;
+
+        }
+
+        if($request->is_pdf=="true")
+        {
+            $destinationPath = public_path() . '/assets/pdf/';
+            $request->file('pdf_content')->move($destinationPath, $pdf);
+        }
 
 		if($article->save()){
 

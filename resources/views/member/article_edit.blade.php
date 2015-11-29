@@ -45,8 +45,15 @@
 
                       <div class="form-group">
                         <label>Isi Artikel</label>
-                        <textarea name="isi" id="mytextarea">{{$article->content}}</textarea>
+                        @if($article->is_pdf)
+                          <div id="pdf">
+                            <object data="{{url('/assets/pdf/'.$article->pdf)}}#toolbar=1&amp;navpanes=0&amp;scrollbar=1&amp;page=1&amp;view=FitH" type="application/pdf" width="100%" height="100%" title="PDF Viewer"></object>
+                          </div>
+                        @else
+                          <textarea name="isi" id="mytextarea">{{$article->content}}</textarea>
                        {!!$errors->first('isi', '<label class="control-label has-error">:message</label>')!!}
+                        @endif
+                        
 
                       </div>
                   </div>
@@ -186,6 +193,13 @@
     </div>
   </form>
 @endsection
+
+<style type="text/css">
+
+  #pdf{
+    height: 500px; 
+  }
+</style>
 
 @section('script')
 <script type="text/javascript">
